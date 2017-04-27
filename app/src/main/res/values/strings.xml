@@ -30,4 +30,5 @@
     <string name="error_invalid_username">This username is invalid</string>
     <string name="prompt_password_repeat">repeat your password</string>
     <string name="error_invalid_password_repeat">Two passwords do not match</string>
+    <string name="title_activity_register">register</string>
 </resources>
