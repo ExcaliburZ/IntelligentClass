@@ -3,6 +3,7 @@ package com.wings.intelligentclass;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -17,12 +18,16 @@ import android.widget.ProgressBar;
 import android.widget.ScrollView;
 import android.widget.Toast;
 
-import com.google.gson.Gson;
+import com.wings.intelligentclass.domain.Result;
 import com.wings.intelligentclass.domain.User;
+import com.wings.intelligentclass.utils.ToastUtils;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class RegisterActivity extends AppCompatActivity {
 
@@ -118,9 +123,31 @@ public class RegisterActivity extends AppCompatActivity {
                     mEmailView.getText().toString(),
                     phone,
                     mDescriptionView.getText().toString());
-            Gson gson = new Gson();
-            String userJson = gson.toJson(user);
-            Toast.makeText(this, "ok", Toast.LENGTH_SHORT).show();
+
+            IUserBiz iUserBiz = RetrofitManager.getInstance().getIUserBiz();
+            Call<Result> resultCall = iUserBiz.registerUser(user);
+            resultCall.enqueue(new Callback<Result>() {
+                @Override
+                public void onResponse(Call<Result> call, Response<Result> response) {
+                    Result result = response.body();
+                    if (result.code / 100 == 2) {
+                        showProgress(false);
+                        ToastUtils.showToast(RegisterActivity.this, "Register success");
+                        Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
+                        RegisterActivity.this.startActivity(intent);
+                        RegisterActivity.this.finish();
+                    } else {
+                        showProgress(false);
+                        ToastUtils.showToast(RegisterActivity.this, "Register failed");
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<Result> call, Throwable t) {
+                    ToastUtils.showToast(RegisterActivity.this, "Register failed");
+                }
+            });
+
         }
     }
 

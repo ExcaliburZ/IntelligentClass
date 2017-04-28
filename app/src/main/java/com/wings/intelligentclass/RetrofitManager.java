@@ -37,6 +37,10 @@ public class RetrofitManager {
         mIUserBiz = mRetrofit.create(IUserBiz.class);
     }
 
+    public IUserBiz getIUserBiz() {
+        return mIUserBiz;
+    }
+
     public Result RegisterUser(User user) {
         Call<Result> registerUserCall = mIUserBiz.registerUser(user);
         try {

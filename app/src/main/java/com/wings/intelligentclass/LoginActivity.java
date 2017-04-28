@@ -14,9 +14,16 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.wings.intelligentclass.domain.LoginInfo;
+import com.wings.intelligentclass.domain.User;
+import com.wings.intelligentclass.utils.ToastUtils;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * A login screen that offers login via email/password.
@@ -67,7 +74,7 @@ public class LoginActivity extends AppCompatActivity {
         mPasswordView.setError(null);
 
         // Store values at the time of the login attempt.
-        String email = mUsernameView.getText().toString();
+        String username = mUsernameView.getText().toString();
         String password = mPasswordView.getText().toString();
 
         boolean cancel = false;
@@ -80,12 +87,12 @@ public class LoginActivity extends AppCompatActivity {
             cancel = true;
         }
 
-        // Check for a valid email address.
-        if (TextUtils.isEmpty(email)) {
+        // Check for a valid username address.
+        if (TextUtils.isEmpty(username)) {
             mUsernameView.setError(getString(R.string.error_field_required));
             focusView = mUsernameView;
             cancel = true;
-        } else if (!isUsernameValid(email)) {
+        } else if (!isUsernameValid(username)) {
             mUsernameView.setError(getString(R.string.error_invalid_username));
             focusView = mUsernameView;
             cancel = true;
@@ -99,8 +106,24 @@ public class LoginActivity extends AppCompatActivity {
             // Show a progress spinner, and kick off a background task to
             // perform the user login attempt.
             showProgress(true);
-            mAuthTask = new UserLoginTask(email, password);
-            mAuthTask.execute((Void) null);
+            IUserBiz iUserBiz = RetrofitManager.getInstance().getIUserBiz();
+            Call<LoginInfo> resultCall = iUserBiz.Login(new User(username, password));
+            resultCall.enqueue(new Callback<LoginInfo>() {
+                @Override
+                public void onResponse(Call<LoginInfo> call, Response<LoginInfo> response) {
+                    showProgress(false);
+                    ToastUtils.showToast(LoginActivity.this, "login success");
+                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                    startActivity(intent);
+                    LoginActivity.this.finish();
+                }
+
+                @Override
+                public void onFailure(Call<LoginInfo> call, Throwable t) {
+                    showProgress(false);
+                    ToastUtils.showToast(LoginActivity.this, "login failed,please check username and password");
+                }
+            });
         }
     }
 
