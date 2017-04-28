@@ -13,7 +13,7 @@ public class User {
     private String email;
     private String phone;
     private String description;
-    private List<String> Classes;
+    private List<String> classes;
 
     public User(String username, String password, String email, String phone, String description) {
         this.username = username;
@@ -21,6 +21,11 @@ public class User {
         this.email = email;
         this.phone = phone;
         this.description = description;
+    }
+
+    public User(String username, String password) {
+        this.username = username;
+        this.password = password;
     }
 
     public String getUsername() {
@@ -64,10 +69,10 @@ public class User {
     }
 
     public List<String> getClasses() {
-        return Classes;
+        return classes;
     }
 
     public void setClasses(List<String> classes) {
-        Classes = classes;
+        this.classes = classes;
     }
 }

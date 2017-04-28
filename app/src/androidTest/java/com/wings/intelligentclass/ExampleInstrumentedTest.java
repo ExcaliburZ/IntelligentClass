@@ -4,6 +4,10 @@ import android.content.Context;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.runner.AndroidJUnit4;
 
+import com.wings.intelligentclass.domain.LoginInfo;
+import com.wings.intelligentclass.domain.Result;
+import com.wings.intelligentclass.domain.User;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -22,5 +26,19 @@ public class ExampleInstrumentedTest {
         Context appContext = InstrumentationRegistry.getTargetContext();
 
         assertEquals("com.wings.intelligentclass", appContext.getPackageName());
+    }
+
+    @Test
+    public void testRegisterUSer() {
+        User user = new User("zjq", "123", "1234@qq", "1350", "hehe");
+        Result result = RetrofitManager.getInstance().RegisterUser(user);
+        System.out.println(result);
+    }
+
+    @Test
+    public void testLogin() {
+        User user = new User("zjq", "123");
+        LoginInfo info = RetrofitManager.getInstance().Login(user);
+        System.out.println(info);
     }
 }
