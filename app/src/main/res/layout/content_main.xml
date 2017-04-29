@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -9,10 +9,50 @@
     tools:context="com.wings.intelligentclass.MainActivity"
     tools:showIn="@layout/app_bar_main">
 
-
-    <GridLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent" >
+        android:layout_height="120dp"
+        android:orientation="horizontal">
 
-    </GridLayout>
-</RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/rl_class"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <ImageView
+                android:id="@+id/iv_class"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_centerInParent="true"
+                android:src="@android:drawable/btn_star"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/iv_class"
+                android:layout_centerInParent="true"
+                android:text="班级管理"
+                android:textColor="#000"
+                android:textSize="16sp"/>
+        </RelativeLayout>
+
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="班级管理"/>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="班级管理"/>
+
+    </LinearLayout>
+
+
+</LinearLayout>

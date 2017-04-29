@@ -41,7 +41,8 @@
                     android:hint="@string/prompt_username"
                     android:inputType="textPersonName"
                     android:maxLines="1"
-                    android:singleLine="true"/>
+                    android:singleLine="true"
+                    android:text="wing_zjq"/>
 
             </android.support.design.widget.TextInputLayout>
 
@@ -59,7 +60,8 @@
                     android:imeOptions="actionUnspecified"
                     android:inputType="textPassword"
                     android:maxLines="1"
-                    android:singleLine="true"/>
+                    android:singleLine="true"
+                    android:text="123456789"/>
 
             </android.support.design.widget.TextInputLayout>
 
