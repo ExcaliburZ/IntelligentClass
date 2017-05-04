@@ -113,6 +113,7 @@ public class LoginActivity extends AppCompatActivity {
                 public void onResponse(Call<LoginInfo> call, Response<LoginInfo> response) {
                     showProgress(false);
                     ToastUtils.showToast(LoginActivity.this, "login success");
+                    GlobalPara.getInstance().class_id = response.body().username;
                     Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                     startActivity(intent);
                     LoginActivity.this.finish();
