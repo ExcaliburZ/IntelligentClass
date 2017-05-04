@@ -11,15 +11,15 @@ public class User {
     private String username;
     private String password;
     private String email;
-    private String phone;
+    private String number;
     private String description;
     private List<String> classes;
 
-    public User(String username, String password, String email, String phone, String description) {
+    public User(String username, String password, String email, String number, String description) {
         this.username = username;
         this.password = password;
         this.email = email;
-        this.phone = phone;
+        this.number = number;
         this.description = description;
     }
 
@@ -52,12 +52,12 @@ public class User {
         this.email = email;
     }
 
-    public String getPhone() {
-        return phone;
+    public String getNumber() {
+        return number;
     }
 
-    public void setPhone(String phone) {
-        this.phone = phone;
+    public void setNumber(String number) {
+        this.number = number;
     }
 
     public String getDescription() {

@@ -39,7 +39,7 @@ public class RegisterActivity extends AppCompatActivity {
     AutoCompleteTextView mUsernameView;
     @BindView(R.id.password)
     EditText mPasswordView;
-    @BindView(R.id.phone)
+    @BindView(R.id.number)
     AutoCompleteTextView mPhoneView;
     @BindView(R.id.description)
     MultiAutoCompleteTextView mDescriptionView;

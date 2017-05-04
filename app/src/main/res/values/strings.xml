@@ -23,12 +23,16 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="prompt_username">Username</string>
-    <string name="prompt_phone">Phone</string>
+    <string name="prompt_phone">Student id or Teacher id</string>
     <string name="prompt_description">Description (optional)</string>
     <string name="action_register">Register</string>
-    <string name="error_invalid_phone">This phone is invalid</string>
+    <string name="error_invalid_phone">This number is invalid</string>
     <string name="error_invalid_username">This username is invalid</string>
     <string name="prompt_password_repeat">repeat your password</string>
     <string name="error_invalid_password_repeat">Two passwords do not match</string>
     <string name="title_activity_register">register</string>
+    <string name="title_activity_class_manager">ClassManagerActivity</string>
+    <string name="prompt_class_name">name</string>
+    <string name="limit_num">limit_num</string>
+    <string name="action_create">create</string>
 </resources>

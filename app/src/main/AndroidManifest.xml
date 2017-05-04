@@ -35,6 +35,13 @@
         </activity>
         <activity android:name=".ClassListActivity">
         </activity>
+        <activity
+            android:name=".ClassManagerActivity"
+            android:label="@string/title_activity_class_manager"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+        <activity android:name=".AddClassActivity">
+        </activity>
     </application>
 
 </manifest>

@@ -94,7 +94,7 @@ public class MainActivity extends AppCompatActivity
 
     @OnClick(R.id.rl_class)
     public void onViewClicked() {
-        Intent intent = new Intent(this, ClassListActivity.class);
+        Intent intent = new Intent(this, ClassManagerActivity.class);
         startActivity(intent);
     }
 }
