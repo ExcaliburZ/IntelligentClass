@@ -1,12 +1,13 @@
 package com.wings.intelligentclass.domain;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * Created by wing on 2017/5/2.
  */
 
-public class Class {
+public class Class implements Serializable {
     private String name;
     private String id;
     private int limitNum;

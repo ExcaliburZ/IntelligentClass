@@ -35,8 +35,8 @@ public class RegisterActivity extends AppCompatActivity {
     ProgressBar mProgressView;
     @BindView(R.id.email)
     AutoCompleteTextView mEmailView;
-    @BindView(R.id.username)
-    AutoCompleteTextView mUsernameView;
+    @BindView(R.id.account)
+    AutoCompleteTextView mAccountView;
     @BindView(R.id.password)
     EditText mPasswordView;
     @BindView(R.id.number)
@@ -51,6 +51,8 @@ public class RegisterActivity extends AppCompatActivity {
     ScrollView mLoginFormView;
     @BindView(R.id.password_repeat)
     EditText mPasswordRepeatView;
+    @BindView(R.id.name)
+    AutoCompleteTextView mNameView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,13 +69,14 @@ public class RegisterActivity extends AppCompatActivity {
     private void attemptRegister() {
 
         // Reset errors.
-        mUsernameView.setError(null);
+        mAccountView.setError(null);
         mPasswordView.setError(null);
         mPhoneView.setError(null);
 
         // Store values at the time of the login attempt.
-        String username = mUsernameView.getText().toString();
+        String account = mAccountView.getText().toString();
         String password = mPasswordView.getText().toString();
+        String name = mNameView.getText().toString();
         String passwordRepeat = mPasswordRepeatView.getText().toString();
         String phone = mPhoneView.getText().toString();
 
@@ -97,14 +100,14 @@ public class RegisterActivity extends AppCompatActivity {
             cancel = true;
         }
 
-        // Check for a valid username address.
-        if (TextUtils.isEmpty(username)) {
-            mUsernameView.setError(getString(R.string.error_field_required));
-            focusView = mUsernameView;
+        // Check for a valid account address.
+        if (TextUtils.isEmpty(account)) {
+            mAccountView.setError(getString(R.string.error_field_required));
+            focusView = mAccountView;
             cancel = true;
-        } else if (!isUsernameValid(username)) {
-            mUsernameView.setError(getString(R.string.error_invalid_username));
-            focusView = mUsernameView;
+        } else if (!isUsernameValid(account)) {
+            mAccountView.setError(getString(R.string.error_invalid_username));
+            focusView = mAccountView;
             cancel = true;
         }
 
@@ -118,7 +121,8 @@ public class RegisterActivity extends AppCompatActivity {
             // Show a progress spinner, and kick off a background task to
             // perform the user register attempt.
             showProgress(true);
-            User user = new User(username,
+            User user = new User(account,
+                    name,
                     password,
                     mEmailView.getText().toString(),
                     phone,

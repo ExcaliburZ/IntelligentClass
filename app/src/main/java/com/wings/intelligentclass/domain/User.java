@@ -8,32 +8,34 @@ import java.util.List;
 
 public class User {
 
-    private String username;
+    private String account;
+    private String name;
     private String password;
     private String email;
     private String number;
     private String description;
     private List<String> classes;
 
-    public User(String username, String password, String email, String number, String description) {
-        this.username = username;
+    public User(String account, String name, String password, String email, String number, String description) {
+        this.account = account;
+        this.name = name;
         this.password = password;
         this.email = email;
         this.number = number;
         this.description = description;
     }
 
-    public User(String username, String password) {
-        this.username = username;
+    public User(String account, String password) {
+        this.account = account;
         this.password = password;
     }
 
-    public String getUsername() {
-        return username;
+    public String getAccount() {
+        return account;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setAccount(String account) {
+        this.account = account;
     }
 
     public String getPassword() {
@@ -74,5 +76,13 @@ public class User {
 
     public void setClasses(List<String> classes) {
         this.classes = classes;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }

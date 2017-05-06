@@ -30,8 +30,8 @@ import retrofit2.Response;
  */
 public class LoginActivity extends AppCompatActivity {
 
-    @BindView(R.id.username)
-    AutoCompleteTextView mUsernameView;
+    @BindView(R.id.account)
+    AutoCompleteTextView mAccountView;
     @BindView(R.id.password)
     EditText mPasswordView;
     @BindView(R.id.email_sign_in_button)
@@ -70,11 +70,11 @@ public class LoginActivity extends AppCompatActivity {
         }
 
         // Reset errors.
-        mUsernameView.setError(null);
+        mAccountView.setError(null);
         mPasswordView.setError(null);
 
         // Store values at the time of the login attempt.
-        String username = mUsernameView.getText().toString();
+        String account = mAccountView.getText().toString();
         String password = mPasswordView.getText().toString();
 
         boolean cancel = false;
@@ -87,14 +87,14 @@ public class LoginActivity extends AppCompatActivity {
             cancel = true;
         }
 
-        // Check for a valid username address.
-        if (TextUtils.isEmpty(username)) {
-            mUsernameView.setError(getString(R.string.error_field_required));
-            focusView = mUsernameView;
+        // Check for a valid account address.
+        if (TextUtils.isEmpty(account)) {
+            mAccountView.setError(getString(R.string.error_field_required));
+            focusView = mAccountView;
             cancel = true;
-        } else if (!isUsernameValid(username)) {
-            mUsernameView.setError(getString(R.string.error_invalid_username));
-            focusView = mUsernameView;
+        } else if (!isUsernameValid(account)) {
+            mAccountView.setError(getString(R.string.error_invalid_username));
+            focusView = mAccountView;
             cancel = true;
         }
 
@@ -107,7 +107,7 @@ public class LoginActivity extends AppCompatActivity {
             // perform the user login attempt.
             showProgress(true);
             IUserBiz iUserBiz = RetrofitManager.getInstance().getIUserBiz();
-            Call<LoginInfo> resultCall = iUserBiz.Login(new User(username, password));
+            Call<LoginInfo> resultCall = iUserBiz.Login(new User(account, password));
             resultCall.enqueue(new Callback<LoginInfo>() {
                 @Override
                 public void onResponse(Call<LoginInfo> call, Response<LoginInfo> response) {
@@ -122,7 +122,7 @@ public class LoginActivity extends AppCompatActivity {
                 @Override
                 public void onFailure(Call<LoginInfo> call, Throwable t) {
                     showProgress(false);
-                    ToastUtils.showToast(LoginActivity.this, "login failed,please check username and password");
+                    ToastUtils.showToast(LoginActivity.this, "login failed,please check account and password");
                 }
             });
         }

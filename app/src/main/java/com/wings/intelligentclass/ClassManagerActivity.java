@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -67,7 +68,7 @@ public class ClassManagerActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<List<Class>> call, Response<List<Class>> response) {
 
-                ToastUtils.showToast(ClassManagerActivity.this, "load classes success");
+                Log.i("ClassManagerActivity", "getData-----");
                 mSrlRefresh.setRefreshing(false);
                 mClassList = response.body();
                 ClassListAdapter adapter = new ClassListAdapter();
@@ -83,6 +84,7 @@ public class ClassManagerActivity extends AppCompatActivity {
         });
     }
 
+
     private class ClassListAdapter extends RecyclerView.Adapter<ClassHolder> {
 
         @Override
@@ -94,10 +96,18 @@ public class ClassManagerActivity extends AppCompatActivity {
 
         @Override
         public void onBindViewHolder(ClassHolder holder, int position) {
-            Class item = mClassList.get(position);
+            final Class item = mClassList.get(position);
             holder.tvName.setText(item.getName());
             holder.tvLimit.setText(getStudentListNum(item) + "/" + item.getLimitNum());
             holder.tvTime.setText(item.getCreateTime());
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(ClassManagerActivity.this, ClassDetailActivity.class);
+                    intent.putExtra("class", item);
+                    ClassManagerActivity.this.startActivity(intent);
+                }
+            });
         }
 
         private int getStudentListNum(Class item) {
@@ -118,7 +128,7 @@ public class ClassManagerActivity extends AppCompatActivity {
         private TextView tvLimit;
         private TextView tvTime;
 
-        public ClassHolder(View itemView) {
+        ClassHolder(View itemView) {
             super(itemView);
             tvName = (TextView) itemView.findViewById(R.id.tv_name);
             tvLimit = (TextView) itemView.findViewById(R.id.tv_limit);

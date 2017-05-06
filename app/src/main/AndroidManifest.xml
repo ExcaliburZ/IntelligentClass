@@ -23,7 +23,6 @@
         <activity
             android:name=".LoginActivity"
             android:label="@string/title_activity_login">
-
         </activity>
         <activity
             android:name=".RegisterActivity"
@@ -41,7 +40,13 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".AddClassActivity">
+        <activity
+            android:name=".AddClassActivity"
+            android:parentActivityName=".ClassManagerActivity">
+        </activity>
+        <activity
+            android:name=".ClassDetailActivity"
+            android:parentActivityName=".ClassManagerActivity">
         </activity>
     </application>
 

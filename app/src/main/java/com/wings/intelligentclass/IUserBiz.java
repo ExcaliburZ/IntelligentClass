@@ -26,4 +26,7 @@ public interface IUserBiz {
 
     @GET("class_list.json")
     Call<List<Class>> getClasses(@Query("id") String id);
+
+    @GET("start_check_in.json")
+    Call<Result> startCheckIn(@Query("class_id") String class_id, @Query("password") String password);
 }
