@@ -4,7 +4,6 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -13,8 +12,13 @@ import android.view.View;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.MultiAutoCompleteTextView;
+import android.widget.ProgressBar;
+import android.widget.ScrollView;
+import android.widget.Toast;
 
-import com.wings.intelligentclass.domain.LoginInfo;
+import com.wings.intelligentclass.domain.Result;
 import com.wings.intelligentclass.domain.User;
 import com.wings.intelligentclass.utils.ToastUtils;
 
@@ -25,64 +29,73 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-/**
- * A login screen that offers login via email/password.
- */
-public class LoginActivity extends AppCompatActivity {
+public class RegisterActivity extends AppCompatActivity {
 
+    @BindView(R.id.login_progress)
+    ProgressBar mProgressView;
+    @BindView(R.id.email)
+    AutoCompleteTextView mEmailView;
     @BindView(R.id.account)
     AutoCompleteTextView mAccountView;
     @BindView(R.id.password)
     EditText mPasswordView;
+    @BindView(R.id.number)
+    AutoCompleteTextView mPhoneView;
+    @BindView(R.id.description)
+    MultiAutoCompleteTextView mDescriptionView;
     @BindView(R.id.email_sign_in_button)
     Button mEmailSignInButton;
-    @BindView(R.id.register_button)
-    Button mRegisterButton;
-
-    /**
-     * Keep track of the login task to ensure we can cancel it if requested.
-     */
-    private UserLoginTask mAuthTask = null;
-
-    private View mProgressView;
-    private View mLoginFormView;
+    @BindView(R.id.email_login_form)
+    LinearLayout mEmailLoginForm;
+    @BindView(R.id.login_form)
+    ScrollView mLoginFormView;
+    @BindView(R.id.password_repeat)
+    EditText mPasswordRepeatView;
+    @BindView(R.id.name)
+    AutoCompleteTextView mNameView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+        setContentView(R.layout.activity_register);
         ButterKnife.bind(this);
-        // Set up the login form.
-
-        mLoginFormView = findViewById(R.id.login_form);
-        mProgressView = findViewById(R.id.login_progress);
     }
 
+    @OnClick(R.id.email_sign_in_button)
+    public void onViewClicked() {
+        attemptRegister();
+    }
 
-    /**
-     * Attempts to sign in or register the account specified by the login form.
-     * If there are form errors (invalid email, missing fields, etc.), the
-     * errors are presented and no actual login attempt is made.
-     */
-    private void attemptLogin() {
-        if (mAuthTask != null) {
-            return;
-        }
+    private void attemptRegister() {
 
         // Reset errors.
         mAccountView.setError(null);
         mPasswordView.setError(null);
+        mPhoneView.setError(null);
 
         // Store values at the time of the login attempt.
         String account = mAccountView.getText().toString();
         String password = mPasswordView.getText().toString();
+        String name = mNameView.getText().toString();
+        String passwordRepeat = mPasswordRepeatView.getText().toString();
+        String phone = mPhoneView.getText().toString();
 
         boolean cancel = false;
         View focusView = null;
 
+        if (TextUtils.isEmpty(phone) || !isPhoneValid(phone)) {
+            mPhoneView.setError(getString(R.string.error_invalid_phone));
+            focusView = mPhoneView;
+            cancel = true;
+        }
+
         // Check for a valid password, if the user entered one.
         if (TextUtils.isEmpty(password) || !isPasswordValid(password)) {
             mPasswordView.setError(getString(R.string.error_invalid_password));
+            focusView = mPasswordView;
+            cancel = true;
+        } else if (!TextUtils.equals(password, passwordRepeat)) {
+            mPasswordView.setError(getString(R.string.error_invalid_password_repeat));
             focusView = mPasswordView;
             cancel = true;
         }
@@ -98,49 +111,50 @@ public class LoginActivity extends AppCompatActivity {
             cancel = true;
         }
 
+
         if (cancel) {
             // There was an error; don't attempt login and focus the first
             // form field with an error.
             focusView.requestFocus();
+            Toast.makeText(this, "error", Toast.LENGTH_SHORT).show();
         } else {
             // Show a progress spinner, and kick off a background task to
-            // perform the user login attempt.
+            // perform the user register attempt.
             showProgress(true);
+            User user = new User(account,
+                    name,
+                    password,
+                    mEmailView.getText().toString(),
+                    phone,
+                    mDescriptionView.getText().toString());
+
             IUserBiz iUserBiz = RetrofitManager.getInstance().getIUserBiz();
-            Call<LoginInfo> resultCall = iUserBiz.Login(new User(account, password));
-            resultCall.enqueue(new Callback<LoginInfo>() {
+            Call<Result> resultCall = iUserBiz.registerUser(user);
+            resultCall.enqueue(new Callback<Result>() {
                 @Override
-                public void onResponse(Call<LoginInfo> call, Response<LoginInfo> response) {
-                    showProgress(false);
-                    ToastUtils.showToast(LoginActivity.this, "login success");
-                    GlobalPara.getInstance().class_id = response.body().username;
-                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                    startActivity(intent);
-                    LoginActivity.this.finish();
+                public void onResponse(Call<Result> call, Response<Result> response) {
+                    Result result = response.body();
+                    if (result.code / 100 == 2) {
+                        showProgress(false);
+                        ToastUtils.showToast(RegisterActivity.this, "Register success");
+                        Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
+                        RegisterActivity.this.startActivity(intent);
+                        RegisterActivity.this.finish();
+                    } else {
+                        showProgress(false);
+                        ToastUtils.showToast(RegisterActivity.this, "Register failed");
+                    }
                 }
 
                 @Override
-                public void onFailure(Call<LoginInfo> call, Throwable t) {
-                    showProgress(false);
-                    ToastUtils.showToast(LoginActivity.this, "login failed,please check account and password");
+                public void onFailure(Call<Result> call, Throwable t) {
+                    ToastUtils.showToast(RegisterActivity.this, "Register failed");
                 }
             });
+
         }
     }
 
-    private boolean isUsernameValid(String email) {
-        //TODO: Replace this with your own logic
-        return email.length() > 4;
-    }
-
-    private boolean isPasswordValid(String password) {
-        //TODO: Replace this with your own logic
-        return password.length() > 4;
-    }
-
-    /**
-     * Shows the progress UI and hides the login form.
-     */
     @TargetApi(Build.VERSION_CODES.HONEYCOMB_MR2)
     private void showProgress(final boolean show) {
         // On Honeycomb MR2 we have the ViewPropertyAnimator APIs, which allow
@@ -174,76 +188,17 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
-
-    @OnClick(R.id.email_sign_in_button)
-    public void onViewClicked() {
+    private boolean isPhoneValid(String phone) {
+        return phone.length() > 4;
     }
 
-    @OnClick({R.id.email_sign_in_button, R.id.register_button})
-    public void onViewClicked(View view) {
-        switch (view.getId()) {
-            case R.id.email_sign_in_button:
-                attemptLogin();
-                break;
-            case R.id.register_button:
-                enterRegisterActivity();
-                break;
-        }
+    private boolean isUsernameValid(String email) {
+        //TODO: Replace this with your own logic
+        return email.length() > 6;
     }
 
-    private void enterRegisterActivity() {
-        Intent intent = new Intent(this, RegisterActivity.class);
-        this.startActivity(intent);
-    }
-
-
-    /**
-     * Represents an asynchronous login/registration task used to authenticate
-     * the user.
-     */
-    public class UserLoginTask extends AsyncTask<Void, Void, Boolean> {
-
-        private final String mEmail;
-        private final String mPassword;
-
-        UserLoginTask(String email, String password) {
-            mEmail = email;
-            mPassword = password;
-        }
-
-        @Override
-        protected Boolean doInBackground(Void... params) {
-            // TODO: attempt authentication against a network service.
-
-            try {
-                // Simulate network access.
-                Thread.sleep(2000);
-            } catch (InterruptedException e) {
-                return false;
-            }
-
-            // TODO: register the new account here.
-            return true;
-        }
-
-        @Override
-        protected void onPostExecute(final Boolean success) {
-            mAuthTask = null;
-            showProgress(false);
-
-            if (success) {
-                finish();
-            } else {
-                mPasswordView.setError(getString(R.string.error_incorrect_password));
-                mPasswordView.requestFocus();
-            }
-        }
-
-        @Override
-        protected void onCancelled() {
-            mAuthTask = null;
-            showProgress(false);
-        }
+    private boolean isPasswordValid(String password) {
+        //TODO: Replace this with your own logic
+        return password.length() > 4;
     }
 }
-
