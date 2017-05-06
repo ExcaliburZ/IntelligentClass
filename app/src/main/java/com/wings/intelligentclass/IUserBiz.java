@@ -1,5 +1,7 @@
 package com.wings.intelligentclass;
 
+import com.wings.intelligentclass.domain.CheckInRequest;
+import com.wings.intelligentclass.domain.CheckInResultData;
 import com.wings.intelligentclass.domain.Class;
 import com.wings.intelligentclass.domain.LoginInfo;
 import com.wings.intelligentclass.domain.Result;
@@ -28,5 +30,8 @@ public interface IUserBiz {
     Call<List<Class>> getClasses(@Query("id") String id);
 
     @GET("start_check_in.json")
-    Call<Result> startCheckIn(@Query("class_id") String class_id, @Query("password") String password);
+    Call<Result> startCheckIn(@Query("class_id") String classID, @Query("password") String password);
+
+    @POST("check_in_result.json")
+    Call<CheckInResultData> getCheckInResult(@Body CheckInRequest request);
 }

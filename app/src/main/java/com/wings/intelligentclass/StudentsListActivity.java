@@ -31,11 +31,11 @@ public class StudentsListActivity extends AppCompatActivity {
             return;
         }
         mStudentListRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        mStudentListRecyclerView.setAdapter(new QuickAdapter());
+        mStudentListRecyclerView.setAdapter(new StudentListAdapter());
     }
 
-    public class QuickAdapter extends BaseQuickAdapter<User, BaseViewHolder> {
-        public QuickAdapter() {
+    public class StudentListAdapter extends BaseQuickAdapter<User, BaseViewHolder> {
+        public StudentListAdapter() {
             super(R.layout.item_student_view, mStudentsList);
         }
 

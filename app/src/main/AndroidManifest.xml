@@ -52,6 +52,10 @@
             android:name=".StudentsListActivity"
             android:parentActivityName=".ClassDetailActivity">
         </activity>
+        <activity
+            android:name=".CheckInResultActivity"
+            android:parentActivityName=".ClassDetailActivity">
+        </activity>
     </application>
 
 </manifest>

@@ -10,9 +10,11 @@ import android.view.View;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.wings.intelligentclass.domain.Class;
 import com.wings.intelligentclass.domain.Result;
+import com.wings.intelligentclass.domain.User;
 import com.wings.intelligentclass.utils.ToastUtils;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -33,6 +35,8 @@ public class ClassDetailActivity extends AppCompatActivity {
     CardView mCvStudentList;
     @BindView(R.id.cv_usually_points)
     CardView mCvUsuallyPoints;
+    @BindView(R.id.cv_check_in_result)
+    CardView mCvCheckInResult;
     private Class mClazz;
 
     @Override
@@ -48,7 +52,12 @@ public class ClassDetailActivity extends AppCompatActivity {
         setTitle(mClazz.getName());
     }
 
-    @OnClick({R.id.cv_start_check_in, R.id.cv_upload_document, R.id.cv_class_question, R.id.cv_student_list, R.id.cv_usually_points})
+    @OnClick({R.id.cv_start_check_in,
+            R.id.cv_upload_document,
+            R.id.cv_class_question,
+            R.id.cv_student_list,
+            R.id.cv_usually_points,
+            R.id.cv_check_in_result})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.cv_start_check_in:
@@ -63,7 +72,21 @@ public class ClassDetailActivity extends AppCompatActivity {
                 break;
             case R.id.cv_usually_points:
                 break;
+            case R.id.cv_check_in_result:
+                enterCheckInResultActivity();
+                break;
         }
+    }
+
+    private void enterCheckInResultActivity() {
+        Intent intent = new Intent(this, CheckInResultActivity.class);
+        intent.putExtra("class_id", mClazz.getId());
+        ArrayList<String> accountList = new ArrayList<>();
+        for (User user : mClazz.getStudentList()) {
+            accountList.add(user.getAccount());
+        }
+        intent.putStringArrayListExtra("account_list", accountList);
+        startActivity(intent);
     }
 
     private void enterStudentsListActivity() {
