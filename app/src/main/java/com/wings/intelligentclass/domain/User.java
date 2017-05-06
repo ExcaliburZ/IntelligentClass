@@ -1,12 +1,13 @@
 package com.wings.intelligentclass.domain;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * Created by wing on 2017/4/27.
  */
 
-public class User {
+public class User implements Serializable {
 
     private String account;
     private String name;

@@ -1,16 +1,18 @@
 package com.wings.intelligentclass;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.text.InputType;
 import android.view.View;
-import android.widget.TextView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.wings.intelligentclass.domain.Class;
 import com.wings.intelligentclass.domain.Result;
 import com.wings.intelligentclass.utils.ToastUtils;
+
+import java.io.Serializable;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -28,7 +30,7 @@ public class ClassDetailActivity extends AppCompatActivity {
     @BindView(R.id.cv_class_question)
     CardView mCvClassQuestion;
     @BindView(R.id.cv_student_list)
-    TextView mCvStudentList;
+    CardView mCvStudentList;
     @BindView(R.id.cv_usually_points)
     CardView mCvUsuallyPoints;
     private Class mClazz;
@@ -57,10 +59,17 @@ public class ClassDetailActivity extends AppCompatActivity {
             case R.id.cv_class_question:
                 break;
             case R.id.cv_student_list:
+                enterStudentsListActivity();
                 break;
             case R.id.cv_usually_points:
                 break;
         }
+    }
+
+    private void enterStudentsListActivity() {
+        Intent intent = new Intent(this, StudentsListActivity.class);
+        intent.putExtra("studentsList", (Serializable) mClazz.getStudentList());
+        startActivity(intent);
     }
 
     //开始签到,弹出对话框让老师输入签到码

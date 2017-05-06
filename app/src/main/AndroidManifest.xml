@@ -28,11 +28,10 @@
             android:name=".RegisterActivity"
             android:label="@string/title_activity_register">
         </activity>
-        <activity android:name=".ClassListActivity">
-        </activity>
         <activity
             android:name=".ClassManagerActivity"
             android:label="@string/title_activity_class_manager"
+            android:launchMode="singleTop"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -46,7 +45,12 @@
         </activity>
         <activity
             android:name=".ClassDetailActivity"
+            android:launchMode="singleTop"
             android:parentActivityName=".ClassManagerActivity">
+        </activity>
+        <activity
+            android:name=".StudentsListActivity"
+            android:parentActivityName=".ClassDetailActivity">
         </activity>
     </application>
 
