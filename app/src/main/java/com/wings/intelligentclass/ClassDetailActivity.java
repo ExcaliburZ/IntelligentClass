@@ -64,6 +64,7 @@ public class ClassDetailActivity extends AppCompatActivity {
                 startCheckIn();
                 break;
             case R.id.cv_upload_document:
+                enterUploadDocActivity();
                 break;
             case R.id.cv_class_question:
                 break;
@@ -76,6 +77,12 @@ public class ClassDetailActivity extends AppCompatActivity {
                 enterCheckInResultActivity();
                 break;
         }
+    }
+
+    private void enterUploadDocActivity() {
+        Intent intent = new Intent(this, UploadDocActivity.class);
+        intent.putExtra("class_id", mClazz.getId());
+        startActivity(intent);
     }
 
     private void enterCheckInResultActivity() {

@@ -58,6 +58,21 @@
         </android.support.v7.widget.CardView>
 
         <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:layout_marginTop="5dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="30dp"
+                android:text="教案管理"
+                android:textColor="#000"
+                android:textSize="20sp"/>
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
             android:id="@+id/cv_class_question"
             android:layout_width="match_parent"
             android:layout_height="80dp"
@@ -106,20 +121,6 @@
                 android:textSize="20sp"/>
         </android.support.v7.widget.CardView>
 
-        <android.support.v7.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="80dp"
-            android:layout_marginTop="5dp">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_marginLeft="30dp"
-                android:text="平时分管理"
-                android:textColor="#000"
-                android:textSize="20sp"/>
-        </android.support.v7.widget.CardView>
 
     </LinearLayout>
 </ScrollView>

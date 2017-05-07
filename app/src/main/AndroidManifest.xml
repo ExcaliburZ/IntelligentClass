@@ -56,6 +56,8 @@
             android:name=".CheckInResultActivity"
             android:parentActivityName=".ClassDetailActivity">
         </activity>
+        <activity android:name=".UploadDocActivity">
+        </activity>
     </application>
 
 </manifest>
