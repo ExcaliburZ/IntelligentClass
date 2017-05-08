@@ -14,5 +14,7 @@ public class GlobalPara {
     private GlobalPara() {
     }
 
-    public String class_id = "-1";
+    public String account = "-1";
+    public String name = "-zjq";
+    public String number = "-13477126";
 }

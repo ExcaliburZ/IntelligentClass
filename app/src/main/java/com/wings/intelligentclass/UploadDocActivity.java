@@ -77,7 +77,7 @@ public class UploadDocActivity extends AppCompatActivity {
         upload.enqueue(new Callback<Result>() {
             @Override
             public void onResponse(Call<Result> call, Response<Result> response) {
-                if (response.body() == null || response.body().code / 100 != 2) {
+                if (response.body() == null || response.code() / 100 != 2) {
                     ToastUtils.showToast(UploadDocActivity.this, "uploadMulti failed");
                     return;
                 }

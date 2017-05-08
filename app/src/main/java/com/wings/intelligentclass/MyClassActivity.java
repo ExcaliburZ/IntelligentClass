@@ -48,7 +48,7 @@ public class MyClassActivity extends AppCompatActivity {
 
     public void fillClassesData() {
         IUserBiz iUserBiz = RetrofitManager.getInstance().getIUserBiz();
-        Call<List<Clazz>> resultCall = iUserBiz.getMyClasses(GlobalPara.getInstance().class_id);
+        Call<List<Clazz>> resultCall = iUserBiz.getMyClasses(GlobalPara.getInstance().account);
         resultCall.enqueue(new Callback<List<Clazz>>() {
             @Override
             public void onResponse(Call<List<Clazz>> call, Response<List<Clazz>> response) {
@@ -82,14 +82,14 @@ public class MyClassActivity extends AppCompatActivity {
 
         @Override
         public void onBindViewHolder(ClassHolder holder, int position) {
-            final Clazz item = mClassList.get(position);
-            holder.tvName.setText(item.getName());
-            holder.tvTime.setText("create at : " + item.getCreateTime());
+            final Clazz clazzItem = mClassList.get(position);
+            holder.tvName.setText(clazzItem.getName());
+            holder.tvTime.setText("create at : " + clazzItem.getCreateTime());
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent(MyClassActivity.this, ClassDetailActivity.class);
-                    intent.putExtra("class", item);
+                    Intent intent = new Intent(MyClassActivity.this, StudentOperationActivity.class);
+                    intent.putExtra("class_id", clazzItem.getId());
                     MyClassActivity.this.startActivity(intent);
                 }
             });

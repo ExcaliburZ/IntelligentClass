@@ -59,7 +59,7 @@ public class ClassManagerActivity extends AppCompatActivity {
 
     public void fillClassesData() {
         IUserBiz iUserBiz = RetrofitManager.getInstance().getIUserBiz();
-        Call<List<Clazz>> resultCall = iUserBiz.getClassManager(GlobalPara.getInstance().class_id);
+        Call<List<Clazz>> resultCall = iUserBiz.getClassManager(GlobalPara.getInstance().account);
         resultCall.enqueue(new Callback<List<Clazz>>() {
             @Override
             public void onResponse(Call<List<Clazz>> call, Response<List<Clazz>> response) {

@@ -7,7 +7,9 @@ import java.util.List;
  */
 
 public class LoginInfo extends Result {
-    public String username;
+    public String account;
+    public String number;
+    public String name;
     public String email;
     public String phone;
     public String description;

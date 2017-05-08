@@ -113,7 +113,7 @@ public class LoginActivity extends AppCompatActivity {
                 public void onResponse(Call<LoginInfo> call, Response<LoginInfo> response) {
                     showProgress(false);
                     ToastUtils.showToast(LoginActivity.this, "login success");
-                    GlobalPara.getInstance().class_id = response.body().username;
+                    initGlobalPara(response);
                     Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                     startActivity(intent);
                     LoginActivity.this.finish();
@@ -126,6 +126,13 @@ public class LoginActivity extends AppCompatActivity {
                 }
             });
         }
+    }
+
+    private void initGlobalPara(Response<LoginInfo> response) {
+        GlobalPara.getInstance().account = response.body().account;
+        GlobalPara.getInstance().name = response.body().name;
+        GlobalPara.getInstance().number = response.body().number;
+
     }
 
     private boolean isUsernameValid(String email) {

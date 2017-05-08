@@ -31,10 +31,10 @@ public interface IUserBiz {
     Call<LoginInfo> Login(@Body User user);
 
     @GET("class_list.json")
-    Call<List<Clazz>> getClassManager(@Query("id") String userId);
+    Call<List<Clazz>> getClassManager(@Query("id") String account);
 
     @GET("my_class.json")
-    Call<List<Clazz>> getMyClasses(@Query("id") String userId);
+    Call<List<Clazz>> getMyClasses(@Query("id") String account);
 
     @GET("start_check_in.json")
     Call<Result> startCheckIn(@Query("class_id") String classID, @Query("password") String password);
@@ -48,4 +48,11 @@ public interface IUserBiz {
 
     @POST("upload")
     Call<Result> upload(@Query("class_id") String classID, @Body File file);
+
+    @GET("student_check_in")
+    Call<Result> studentCheckIn(@Query("class_id") String classID,
+                                @Query("password") String password,
+                                @Query("student_id") String studentID,
+                                @Query("student_name") String studentName,
+                                @Query("student_number") String studentNumber);
 }
