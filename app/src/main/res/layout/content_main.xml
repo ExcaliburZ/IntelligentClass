@@ -21,7 +21,7 @@
             android:layout_weight="1">
 
             <ImageView
-                android:id="@+id/iv_class"
+                android:id="@+id/iv_class_manager"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_centerInParent="true"
@@ -30,7 +30,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/iv_class"
+                android:layout_below="@id/iv_class_manager"
                 android:layout_centerInParent="true"
                 android:text="班级管理"
                 android:textColor="#000"
@@ -38,19 +38,51 @@
         </RelativeLayout>
 
 
-        <TextView
+        <RelativeLayout
+            android:id="@+id/rl_my_class"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:text="班级管理"/>
+            android:layout_weight="1">
 
-        <TextView
+            <ImageView
+                android:id="@+id/iv_my_class"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_centerInParent="true"
+                android:src="@android:drawable/btn_star_big_on"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/iv_my_class"
+                android:layout_centerInParent="true"
+                android:text="我的班级"
+                android:textColor="#000"
+                android:textSize="16sp"/>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rl_search_class"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:text="班级管理"/>
+            android:layout_weight="1">
+
+            <ImageView
+                android:id="@+id/iv_search_class"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_centerInParent="true"
+                android:src="@android:drawable/btn_star_big_on"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/iv_search_class"
+                android:layout_centerInParent="true"
+                android:text="查找班级"
+                android:textColor="#000"
+                android:textSize="16sp"/>
+        </RelativeLayout>
 
     </LinearLayout>
 

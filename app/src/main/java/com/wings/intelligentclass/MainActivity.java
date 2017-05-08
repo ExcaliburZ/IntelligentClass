@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -92,9 +93,20 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
-    @OnClick(R.id.rl_class)
-    public void onViewClicked() {
-        Intent intent = new Intent(this, ClassManagerActivity.class);
-        startActivity(intent);
+
+    @OnClick({R.id.rl_class, R.id.rl_my_class, R.id.rl_search_class})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.rl_class:
+                Intent intent = new Intent(this, ClassManagerActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.rl_my_class:
+                Intent myClassintent = new Intent(this, MyClassActivity.class);
+                startActivity(myClassintent);
+                break;
+            case R.id.rl_search_class:
+                break;
+        }
     }
 }

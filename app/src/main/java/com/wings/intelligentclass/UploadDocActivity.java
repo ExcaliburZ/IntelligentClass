@@ -15,8 +15,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.MultiAutoCompleteTextView;
 import android.widget.TextView;
 
+import com.wings.intelligentclass.domain.Result;
 import com.wings.intelligentclass.utils.ToastUtils;
 
 import java.io.File;
@@ -24,6 +26,9 @@ import java.io.File;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class UploadDocActivity extends AppCompatActivity {
 
@@ -36,13 +41,17 @@ public class UploadDocActivity extends AppCompatActivity {
     TextView mTvDocName;
     @BindView(R.id.iv_doc_icon)
     ImageView mIvDocIcon;
+    @BindView(R.id.description)
+    MultiAutoCompleteTextView mDescription;
+    private File mFile;
+    private String mClassId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_upload_doc);
         ButterKnife.bind(this);
-        String classId = getIntent().getStringExtra("class_id");
+        mClassId = getIntent().getStringExtra("class_id");
 
     }
 
@@ -53,8 +62,34 @@ public class UploadDocActivity extends AppCompatActivity {
                 selectDoc();
                 break;
             case R.id.bt_start_upload:
+                startUploadDoc();
                 break;
         }
+    }
+
+    private void startUploadDoc() {
+        if (mFile == null) {
+            ToastUtils.showToast(this, "请先选择课件");
+            return;
+        }
+        IUserBiz iUserBiz = RetrofitManager.getInstance().getIUserBiz();
+        Call<Result> upload = iUserBiz.upload(mClassId, mFile);
+        upload.enqueue(new Callback<Result>() {
+            @Override
+            public void onResponse(Call<Result> call, Response<Result> response) {
+                if (response.body() == null || response.body().code / 100 != 2) {
+                    ToastUtils.showToast(UploadDocActivity.this, "uploadMulti failed");
+                    return;
+                }
+                ToastUtils.showToast(UploadDocActivity.this, "uploadMulti success");
+            }
+
+            @Override
+            public void onFailure(Call<Result> call, Throwable t) {
+                ToastUtils.showToast(UploadDocActivity.this, "uploadMulti failed");
+            }
+        });
+
     }
 
     private void selectDoc() {
@@ -79,9 +114,9 @@ public class UploadDocActivity extends AppCompatActivity {
                 try {
                     String path = getPath(this, data.getData());
                     assert path != null;
-                    File file = new File(path);
-                    String fileSizeStr = getFileSizeStr(file);
-                    String name = file.getName();
+                    mFile = new File(path);
+                    String fileSizeStr = getFileSizeStr(mFile);
+                    String name = mFile.getName();
                     mTvDocName.setText(name + "  :  " + fileSizeStr);
                     mIvDocIcon.setVisibility(View.VISIBLE);
                     ToastUtils.showToast(this, "选择成功");

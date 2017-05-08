@@ -18,7 +18,13 @@
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"
+            android:launchMode="singleTop"
             android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
         </activity>
         <activity
             android:name=".LoginActivity"
@@ -32,12 +38,7 @@
             android:name=".ClassManagerActivity"
             android:label="@string/title_activity_class_manager"
             android:launchMode="singleTop"
-            android:theme="@style/AppTheme.NoActionBar">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-
-                <category android:name="android.intent.category.LAUNCHER"/>
-            </intent-filter>
+            android:parentActivityName=".MainActivity">
         </activity>
         <activity
             android:name=".AddClassActivity"
@@ -57,6 +58,12 @@
             android:parentActivityName=".ClassDetailActivity">
         </activity>
         <activity android:name=".UploadDocActivity">
+        </activity>
+        <activity
+            android:name=".MyClassActivity"
+            android:label="@string/title_activity_my_class"
+            android:launchMode="singleTop"
+            android:parentActivityName=".MainActivity">
         </activity>
     </application>
 

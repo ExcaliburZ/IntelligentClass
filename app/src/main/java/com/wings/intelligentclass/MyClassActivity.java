@@ -3,7 +3,6 @@ package com.wings.intelligentclass;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -24,8 +23,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class ClassManagerActivity extends AppCompatActivity {
-
+public class MyClassActivity extends AppCompatActivity {
     @BindView(R.id.rv_classes)
     RecyclerView mRecyclerView;
     @BindView(R.id.srl_refresh)
@@ -35,17 +33,9 @@ public class ClassManagerActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_class_manager);
+        setContentView(R.layout.activity_my_class);
         ButterKnife.bind(this);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(ClassManagerActivity.this, AddClassActivity.class);
-                ClassManagerActivity.this.startActivity(i);
-            }
-        });
         mSrlRefresh.setColorSchemeColors(Color.BLUE);
         mSrlRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override //刷新时回调方法
@@ -56,24 +46,26 @@ public class ClassManagerActivity extends AppCompatActivity {
         fillClassesData();
     }
 
-
     public void fillClassesData() {
         IUserBiz iUserBiz = RetrofitManager.getInstance().getIUserBiz();
-        Call<List<Clazz>> resultCall = iUserBiz.getClassManager(GlobalPara.getInstance().class_id);
+        Call<List<Clazz>> resultCall = iUserBiz.getMyClasses(GlobalPara.getInstance().class_id);
         resultCall.enqueue(new Callback<List<Clazz>>() {
             @Override
             public void onResponse(Call<List<Clazz>> call, Response<List<Clazz>> response) {
+                if (response.body() == null || response.code() / 100 != 2) {
+                    ToastUtils.showToast(MyClassActivity.this, "load classes failed");
+                    return;
+                }
                 mSrlRefresh.setRefreshing(false);
                 mClassList = response.body();
                 ClassListAdapter adapter = new ClassListAdapter();
-                mRecyclerView.setLayoutManager(new LinearLayoutManager(ClassManagerActivity.this));
+                mRecyclerView.setLayoutManager(new LinearLayoutManager(MyClassActivity.this));
                 mRecyclerView.setAdapter(adapter);
-
             }
 
             @Override
             public void onFailure(Call<List<Clazz>> call, Throwable t) {
-                ToastUtils.showToast(ClassManagerActivity.this, "load classes failed");
+                ToastUtils.showToast(MyClassActivity.this, "load classes failed");
             }
         });
     }
@@ -84,7 +76,7 @@ public class ClassManagerActivity extends AppCompatActivity {
         @Override
         public ClassHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             View itemView = LayoutInflater
-                    .from(ClassManagerActivity.this).inflate(R.layout.item_class_manager_view, parent, false);
+                    .from(MyClassActivity.this).inflate(R.layout.item_my_class_view, parent, false);
             return new ClassHolder(itemView);
         }
 
@@ -92,23 +84,15 @@ public class ClassManagerActivity extends AppCompatActivity {
         public void onBindViewHolder(ClassHolder holder, int position) {
             final Clazz item = mClassList.get(position);
             holder.tvName.setText(item.getName());
-            holder.tvLimit.setText(getStudentListNum(item) + "/" + item.getLimitNum());
             holder.tvTime.setText("create at : " + item.getCreateTime());
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent(ClassManagerActivity.this, ClassDetailActivity.class);
+                    Intent intent = new Intent(MyClassActivity.this, ClassDetailActivity.class);
                     intent.putExtra("class", item);
-                    ClassManagerActivity.this.startActivity(intent);
+                    MyClassActivity.this.startActivity(intent);
                 }
             });
-        }
-
-        private int getStudentListNum(Clazz item) {
-            if (item.getStudentList() == null) {
-                return 0;
-            }
-            return item.getStudentList().size();
         }
 
         @Override
@@ -119,15 +103,12 @@ public class ClassManagerActivity extends AppCompatActivity {
 
     class ClassHolder extends RecyclerView.ViewHolder {
         private TextView tvName;
-        private TextView tvLimit;
         private TextView tvTime;
 
         ClassHolder(View itemView) {
             super(itemView);
             tvName = (TextView) itemView.findViewById(R.id.tv_name);
-            tvLimit = (TextView) itemView.findViewById(R.id.tv_limit);
             tvTime = (TextView) itemView.findViewById(R.id.tv_create_time);
         }
     }
-
 }

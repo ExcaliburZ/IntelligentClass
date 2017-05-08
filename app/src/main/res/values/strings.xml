@@ -31,9 +31,10 @@
     <string name="prompt_password_repeat">repeat your password</string>
     <string name="error_invalid_password_repeat">Two passwords do not match</string>
     <string name="title_activity_register">register</string>
-    <string name="title_activity_class_manager">ClassManagerActivity</string>
+    <string name="title_activity_class_manager">班级管理</string>
     <string name="prompt_class_name">name</string>
     <string name="limit_num">limit_num</string>
     <string name="action_create">create</string>
     <string name="name">Name</string>
+    <string name="title_activity_my_class">我的班级</string>
 </resources>

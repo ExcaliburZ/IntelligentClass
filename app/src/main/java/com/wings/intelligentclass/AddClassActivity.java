@@ -9,6 +9,6 @@ public class AddClassActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_class);
-        setTitle("Create New Class");
+        setTitle("Create New Clazz");
     }
 }

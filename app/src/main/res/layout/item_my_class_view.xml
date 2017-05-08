@@ -9,25 +9,18 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
+        android:layout_marginLeft="10dp"
         android:text="Software 131"
         android:textColor="#000"
         android:textSize="18sp"/>
 
-    <TextView
-        android:id="@+id/tv_limit"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_margin="20dp"
-        android:text="10/50"
-        android:textSize="12sp"/>
 
     <TextView
         android:id="@+id/tv_create_time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
         android:layout_margin="15dp"
         android:text="create at : 2017/05/05"
         android:textSize="12sp"/>
@@ -37,5 +30,4 @@
         android:layout_height="1dp"
         android:layout_alignParentBottom="true"
         android:src="#5000"/>
-
 </RelativeLayout>

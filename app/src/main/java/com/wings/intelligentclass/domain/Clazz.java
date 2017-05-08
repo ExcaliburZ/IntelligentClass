@@ -7,7 +7,7 @@ import java.util.List;
  * Created by wing on 2017/5/2.
  */
 
-public class Class implements Serializable {
+public class Clazz implements Serializable {
     private String name;
     private String id;
     private int limitNum;

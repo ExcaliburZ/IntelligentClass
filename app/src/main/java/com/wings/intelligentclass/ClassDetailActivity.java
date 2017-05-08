@@ -8,7 +8,7 @@ import android.text.InputType;
 import android.view.View;
 
 import com.afollestad.materialdialogs.MaterialDialog;
-import com.wings.intelligentclass.domain.Class;
+import com.wings.intelligentclass.domain.Clazz;
 import com.wings.intelligentclass.domain.Result;
 import com.wings.intelligentclass.domain.User;
 import com.wings.intelligentclass.utils.ToastUtils;
@@ -37,7 +37,7 @@ public class ClassDetailActivity extends AppCompatActivity {
     CardView mCvUsuallyPoints;
     @BindView(R.id.cv_check_in_result)
     CardView mCvCheckInResult;
-    private Class mClazz;
+    private Clazz mClazz;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,10 +45,10 @@ public class ClassDetailActivity extends AppCompatActivity {
         setContentView(R.layout.activity_class_detail);
         ButterKnife.bind(this);
         Object aClass = getIntent().getExtras().get("class");
-        if (!(aClass instanceof Class)) {
+        if (!(aClass instanceof Clazz)) {
             return;
         }
-        mClazz = (Class) aClass;
+        mClazz = (Clazz) aClass;
         setTitle(mClazz.getName());
     }
 
