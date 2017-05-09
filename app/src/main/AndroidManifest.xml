@@ -57,7 +57,10 @@
             android:name=".CheckInResultActivity"
             android:parentActivityName=".ClassDetailActivity">
         </activity>
-        <activity android:name=".UploadDocActivity">
+        <activity
+            android:name=".UploadDocActivity"
+            android:label="@string/title_upload_doc"
+            android:parentActivityName=".ClassDetailActivity">
         </activity>
         <activity
             android:name=".MyClassActivity"
@@ -67,7 +70,19 @@
         </activity>
         <activity
             android:name=".StudentOperationActivity"
+            android:label="@string/title_student_operation"
+            android:launchMode="singleTop"
             android:parentActivityName=".MyClassActivity">
+        </activity>
+        <activity
+            android:name=".DocManagerActivity"
+            android:label="@string/title_doc_manager"
+            android:parentActivityName=".ClassDetailActivity">
+        </activity>
+        <activity
+            android:name=".MyCheckInActivity"
+            android:label="@string/title_my_check_in"
+            android:parentActivityName=".StudentOperationActivity">
         </activity>
     </application>
 

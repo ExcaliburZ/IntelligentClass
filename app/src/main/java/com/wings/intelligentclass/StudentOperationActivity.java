@@ -36,6 +36,7 @@ public class StudentOperationActivity extends AppCompatActivity {
                 studentCheckIn();
                 break;
             case R.id.cv_check_in_result:
+                showMyCheckIn();
                 break;
             case R.id.cv_download_document:
                 break;
@@ -44,6 +45,13 @@ public class StudentOperationActivity extends AppCompatActivity {
             case R.id.cv_usually_points:
                 break;
         }
+    }
+
+    private void showMyCheckIn() {
+        Intent intent = new Intent(this, MyCheckInActivity.class);
+        intent.putExtra("account", GlobalPara.getInstance().account);
+        intent.putExtra("class_id", mClassId);
+        startActivity(intent);
     }
 
     private void studentCheckIn() {

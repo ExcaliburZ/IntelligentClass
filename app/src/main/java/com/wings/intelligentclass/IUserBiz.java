@@ -3,7 +3,9 @@ package com.wings.intelligentclass;
 import com.wings.intelligentclass.domain.CheckInRequest;
 import com.wings.intelligentclass.domain.CheckInResultData;
 import com.wings.intelligentclass.domain.Clazz;
+import com.wings.intelligentclass.domain.DocInfo;
 import com.wings.intelligentclass.domain.LoginInfo;
+import com.wings.intelligentclass.domain.MyCheckInData;
 import com.wings.intelligentclass.domain.Result;
 import com.wings.intelligentclass.domain.User;
 
@@ -33,6 +35,12 @@ public interface IUserBiz {
     @GET("class_list.json")
     Call<List<Clazz>> getClassManager(@Query("id") String account);
 
+    @GET("doc_list")
+    Call<List<DocInfo>> getDocList(@Query("class_id") String classID);
+
+    @GET("remove_doc")
+    Call<Result> deleteDoc(@Query("id") String id);
+
     @GET("my_class.json")
     Call<List<Clazz>> getMyClasses(@Query("id") String account);
 
@@ -41,6 +49,9 @@ public interface IUserBiz {
 
     @POST("check_in_result.json")
     Call<CheckInResultData> getCheckInResult(@Body CheckInRequest request);
+
+    @GET("get_my_check_in")
+    Call<MyCheckInData> getMyCheckIn(@Query("class_id") String classID, @Query("id") String account);
 
     @Multipart
     @POST("uploadMulti")

@@ -57,7 +57,8 @@ public class ClassDetailActivity extends AppCompatActivity {
             R.id.cv_class_question,
             R.id.cv_student_list,
             R.id.cv_usually_points,
-            R.id.cv_check_in_result})
+            R.id.cv_check_in_result,
+            R.id.cv_doc_manager})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.cv_start_check_in:
@@ -76,7 +77,16 @@ public class ClassDetailActivity extends AppCompatActivity {
             case R.id.cv_check_in_result:
                 enterCheckInResultActivity();
                 break;
+            case R.id.cv_doc_manager:
+                enterDocManager();
+                break;
         }
+    }
+
+    private void enterDocManager() {
+        Intent intent = new Intent(this, DocManagerActivity.class);
+        intent.putExtra("class_id", mClazz.getId());
+        startActivity(intent);
     }
 
     private void enterUploadDocActivity() {
@@ -124,7 +134,7 @@ public class ClassDetailActivity extends AppCompatActivity {
         checkInCall.enqueue(new Callback<Result>() {
             @Override
             public void onResponse(Call<Result> call, Response<Result> response) {
-                if (response.body() == null || response.body().code / 100 != 2) {
+                if (response.body() == null || response.code() / 100 != 2) {
                     ToastUtils.showToast(ClassDetailActivity.this, "开始签到失败,请稍后再试");
                     return;
                 }

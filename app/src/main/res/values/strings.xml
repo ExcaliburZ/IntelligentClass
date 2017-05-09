@@ -37,4 +37,8 @@
     <string name="action_create">create</string>
     <string name="name">Name</string>
     <string name="title_activity_my_class">我的班级</string>
+    <string name="title_upload_doc">上传教案</string>
+    <string name="title_doc_manager">教案管理</string>
+    <string name="title_student_operation">学生操作</string>
+    <string name="title_my_check_in">我的签到</string>
 </resources>

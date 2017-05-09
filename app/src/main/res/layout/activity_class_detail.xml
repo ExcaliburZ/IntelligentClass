@@ -58,6 +58,7 @@
         </android.support.v7.widget.CardView>
 
         <android.support.v7.widget.CardView
+            android:id="@+id/cv_doc_manager"
             android:layout_width="match_parent"
             android:layout_height="80dp"
             android:layout_marginTop="5dp">
