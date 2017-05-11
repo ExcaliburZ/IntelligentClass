@@ -26,13 +26,13 @@ import retrofit2.http.Query;
  */
 
 public interface IUserBiz {
-    @POST("register.json")
+    @POST("register")
     Call<Result> registerUser(@Body User user);
 
-    @POST("login.json")
+    @POST("login")
     Call<LoginInfo> Login(@Body User user);
 
-    @GET("class_list.json")
+    @GET("class_list")
     Call<List<Clazz>> getClassManager(@Query("id") String account);
 
     @GET("doc_list")
@@ -41,13 +41,13 @@ public interface IUserBiz {
     @GET("remove_doc")
     Call<Result> deleteDoc(@Query("id") String id);
 
-    @GET("my_class.json")
+    @GET("my_class")
     Call<List<Clazz>> getMyClasses(@Query("id") String account);
 
-    @GET("start_check_in.json")
+    @GET("start_check_in")
     Call<Result> startCheckIn(@Query("class_id") String classID, @Query("password") String password);
 
-    @POST("check_in_result.json")
+    @POST("check_in_result")
     Call<CheckInResultData> getCheckInResult(@Body CheckInRequest request);
 
     @GET("get_my_check_in")

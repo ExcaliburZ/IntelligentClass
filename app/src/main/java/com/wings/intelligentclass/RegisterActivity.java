@@ -133,17 +133,16 @@ public class RegisterActivity extends AppCompatActivity {
             resultCall.enqueue(new Callback<Result>() {
                 @Override
                 public void onResponse(Call<Result> call, Response<Result> response) {
-                    Result result = response.body();
-                    if (result.code / 100 == 2) {
-                        showProgress(false);
-                        ToastUtils.showToast(RegisterActivity.this, "Register success");
-                        Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
-                        RegisterActivity.this.startActivity(intent);
-                        RegisterActivity.this.finish();
-                    } else {
-                        showProgress(false);
-                        ToastUtils.showToast(RegisterActivity.this, "Register failed");
+                    if (response.body() == null || response.code() / 100 != 2) {
+                        ToastUtils.showToast(RegisterActivity.this, "注册失败");
+                        return;
                     }
+                    Result result = response.body();
+                    showProgress(false);
+                    ToastUtils.showToast(RegisterActivity.this, "Register success");
+                    Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
+                    RegisterActivity.this.startActivity(intent);
+                    RegisterActivity.this.finish();
                 }
 
                 @Override
