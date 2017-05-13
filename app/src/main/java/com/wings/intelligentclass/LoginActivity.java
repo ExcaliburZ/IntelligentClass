@@ -116,6 +116,10 @@ public class LoginActivity extends AppCompatActivity {
                         ToastUtils.showToast(LoginActivity.this, "登录失败");
                         return;
                     }
+                    if (response.body().code == 302) {
+                        ToastUtils.showToast(LoginActivity.this, response.body().message);
+                        return;
+                    }
                     ToastUtils.showToast(LoginActivity.this, "login success");
                     initGlobalPara(response);
                     Intent intent = new Intent(LoginActivity.this, MainActivity.class);
@@ -136,6 +140,8 @@ public class LoginActivity extends AppCompatActivity {
         GlobalPara.getInstance().account = response.body().account;
         GlobalPara.getInstance().name = response.body().name;
         GlobalPara.getInstance().number = response.body().number;
+        GlobalPara.getInstance().description = response.body().description;
+        GlobalPara.getInstance().email = response.body().email;
 
     }
 

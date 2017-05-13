@@ -113,6 +113,9 @@ public class ClassManagerActivity extends AppCompatActivity {
 
         @Override
         public int getItemCount() {
+            if (mClassList == null || mClassList.size() == 0) {
+                return 0;
+            }
             return mClassList.size();
         }
     }

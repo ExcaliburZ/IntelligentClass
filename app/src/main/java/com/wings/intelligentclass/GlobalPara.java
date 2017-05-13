@@ -17,4 +17,6 @@ public class GlobalPara {
     public String account = "-1";
     public String name = "-zjq";
     public String number = "-13477126";
+    public String description = "-i am wing";
+    public String email = "-zjq@gmail";
 }

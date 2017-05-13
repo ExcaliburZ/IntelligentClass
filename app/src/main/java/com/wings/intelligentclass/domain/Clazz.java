@@ -13,6 +13,16 @@ public class Clazz implements Serializable {
     private int limitNum;
     private String createTime;
     private List<User> studentList;
+    private String create_user_account;
+
+    public Clazz(String name, int limitNum, String create_user_account) {
+        this.name = name;
+        this.limitNum = limitNum;
+        this.create_user_account = create_user_account;
+    }
+
+    public Clazz() {
+    }
 
     public String getName() {
         return name;
@@ -52,5 +62,13 @@ public class Clazz implements Serializable {
 
     public void setStudentList(List<User> studentList) {
         this.studentList = studentList;
+    }
+
+    public String getCreate_user_account() {
+        return create_user_account;
+    }
+
+    public void setCreate_user_account(String create_user_account) {
+        this.create_user_account = create_user_account;
     }
 }

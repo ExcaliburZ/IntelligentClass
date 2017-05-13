@@ -127,7 +127,6 @@ public class RegisterActivity extends AppCompatActivity {
                     mEmailView.getText().toString(),
                     phone,
                     mDescriptionView.getText().toString());
-
             IUserBiz iUserBiz = RetrofitManager.getInstance().getIUserBiz();
             Call<Result> resultCall = iUserBiz.registerUser(user);
             resultCall.enqueue(new Callback<Result>() {
@@ -139,6 +138,10 @@ public class RegisterActivity extends AppCompatActivity {
                     }
                     Result result = response.body();
                     showProgress(false);
+                    if (result.code == 303) {
+                        ToastUtils.showToast(RegisterActivity.this, result.message);
+                        return;
+                    }
                     ToastUtils.showToast(RegisterActivity.this, "Register success");
                     Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
                     RegisterActivity.this.startActivity(intent);

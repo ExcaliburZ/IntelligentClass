@@ -32,8 +32,11 @@ public interface IUserBiz {
     @POST("login")
     Call<LoginInfo> Login(@Body User user);
 
-    @GET("class_list")
-    Call<List<Clazz>> getClassManager(@Query("id") String account);
+    @GET("get_class_list")
+    Call<List<Clazz>> getClassManager(@Query("account") String account);
+
+    @POST("add_class")
+    Call<Result> addClass(@Body Clazz clazz);
 
     @GET("doc_list")
     Call<List<DocInfo>> getDocList(@Query("class_id") String classID);
