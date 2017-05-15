@@ -78,8 +78,13 @@ public class StudentOperationActivity extends AppCompatActivity {
         checkInCall.enqueue(new Callback<Result>() {
             @Override
             public void onResponse(Call<Result> call, Response<Result> response) {
-                if (response.body() == null || response.code() / 100 != 2) {
+                Result result = response.body();
+                if (result == null || response.code() / 100 != 2) {
                     ToastUtils.showToast(StudentOperationActivity.this, "签到失败");
+                    return;
+                }
+                if (result.code / 100 == 3) {
+                    ToastUtils.showToast(StudentOperationActivity.this, result.message);
                     return;
                 }
                 ToastUtils.showToast(StudentOperationActivity.this, "签到成功");

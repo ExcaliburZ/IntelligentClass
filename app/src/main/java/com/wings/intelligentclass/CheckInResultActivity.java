@@ -44,6 +44,10 @@ public class CheckInResultActivity extends AppCompatActivity {
         checkInResultCall.enqueue(new Callback<CheckInResultData>() {
             @Override
             public void onResponse(Call<CheckInResultData> call, Response<CheckInResultData> response) {
+                if (response.body() == null || response.code() / 100 != 2) {
+                    ToastUtils.showToast(CheckInResultActivity.this, "查询失败");
+                    return;
+                }
                 CheckInResultData checkInResultData = response.body();
                 mAmount = checkInResultData.getAmount();
                 mCheckInList = checkInResultData.getCheckInList();

@@ -39,32 +39,32 @@ public interface IUserBiz {
     Call<Result> addClass(@Body Clazz clazz);
 
     @GET("doc_list")
-    Call<List<DocInfo>> getDocList(@Query("class_id") String classID);
+    Call<List<DocInfo>> getDocList(@Query("clazz_id") String classID);
 
     @GET("remove_doc")
     Call<Result> deleteDoc(@Query("id") String id);
 
     @GET("my_class")
-    Call<List<Clazz>> getMyClasses(@Query("id") String account);
+    Call<List<Clazz>> getMyClasses(@Query("account") String account);
 
     @GET("start_check_in")
-    Call<Result> startCheckIn(@Query("class_id") String classID, @Query("password") String password);
+    Call<Result> startCheckIn(@Query("clazz_id") String classID, @Query("password") String password);
 
     @POST("check_in_result")
     Call<CheckInResultData> getCheckInResult(@Body CheckInRequest request);
 
     @GET("get_my_check_in")
-    Call<MyCheckInData> getMyCheckIn(@Query("class_id") String classID, @Query("id") String account);
+    Call<MyCheckInData> getMyCheckIn(@Query("clazz_id") String classID, @Query("account") String account);
 
     @Multipart
     @POST("uploadMulti")
     Call<Result> uploadMulti(@Part MultipartBody.Part file);
 
     @POST("upload")
-    Call<Result> upload(@Query("class_id") String classID, @Body File file);
+    Call<Result> upload(@Query("clazz_id") String classID, @Body File file);
 
     @GET("student_check_in")
-    Call<Result> studentCheckIn(@Query("class_id") String classID,
+    Call<Result> studentCheckIn(@Query("clazz_id") String classID,
                                 @Query("password") String password,
                                 @Query("student_id") String studentID,
                                 @Query("student_name") String studentName,
