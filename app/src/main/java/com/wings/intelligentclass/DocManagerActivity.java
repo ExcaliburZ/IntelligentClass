@@ -11,8 +11,8 @@ import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
-import com.wings.intelligentclass.domain.DocInfo;
 import com.wings.intelligentclass.domain.Result;
+import com.wings.intelligentclass.domain.UploadDocument;
 import com.wings.intelligentclass.utils.ToastUtils;
 
 import java.util.List;
@@ -27,7 +27,7 @@ public class DocManagerActivity extends AppCompatActivity {
 
     @BindView(R.id.rv_classes)
     RecyclerView mDocRecyclerView;
-    private List<DocInfo> mDocInfoList;
+    private List<UploadDocument> mDocInfoList;
     private IUserBiz mIUserBiz;
     private DocListAdapter mAdapter;
 
@@ -43,10 +43,10 @@ public class DocManagerActivity extends AppCompatActivity {
 
     private void getDocData(String classId) {
         mIUserBiz = RetrofitManager.getInstance().getIUserBiz();
-        Call<List<DocInfo>> docListCall = mIUserBiz.getDocList(classId);
-        docListCall.enqueue(new Callback<List<DocInfo>>() {
+        Call<List<UploadDocument>> docListCall = mIUserBiz.getDocList(classId);
+        docListCall.enqueue(new Callback<List<UploadDocument>>() {
             @Override
-            public void onResponse(Call<List<DocInfo>> call, Response<List<DocInfo>> response) {
+            public void onResponse(Call<List<UploadDocument>> call, Response<List<UploadDocument>> response) {
                 if (response.body() == null || response.code() / 100 != 2) {
                     ToastUtils.showToast(DocManagerActivity.this, "获取教案列表失败,请稍后再试");
                     return;
@@ -57,22 +57,22 @@ public class DocManagerActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<List<DocInfo>> call, Throwable t) {
+            public void onFailure(Call<List<UploadDocument>> call, Throwable t) {
                 ToastUtils.showToast(DocManagerActivity.this, "获取教案列表失败,请稍后再试");
             }
         });
     }
 
-    private class DocListAdapter extends BaseQuickAdapter<DocInfo, BaseViewHolder> {
+    private class DocListAdapter extends BaseQuickAdapter<UploadDocument, BaseViewHolder> {
 
         DocListAdapter() {
             super(R.layout.item_doc_manager, mDocInfoList);
         }
 
         @Override
-        protected void convert(BaseViewHolder viewHolder, final DocInfo item) {
+        protected void convert(BaseViewHolder viewHolder, final UploadDocument item) {
             viewHolder.setText(R.id.tv_name, item.getName())
-                    .setText(R.id.tv_upload_time, "upload at :" + item.getUploadTime())
+                    .setText(R.id.tv_upload_time, "upload at :" + item.getUpload_time())
                     .setText(R.id.tv_size, item.getSize());
             viewHolder.getView(R.id.iv_delete_doc).setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -82,7 +82,7 @@ public class DocManagerActivity extends AppCompatActivity {
             });
         }
 
-        private void showDialog(final DocInfo item) {
+        private void showDialog(final UploadDocument item) {
             new MaterialDialog.Builder(DocManagerActivity.this)
                     .title("删除教案")
                     .content("你确定要删除教案 : " + item.getName() + "吗?")
@@ -97,7 +97,7 @@ public class DocManagerActivity extends AppCompatActivity {
                     .show();
         }
 
-        private void SendDeleteDocRequest(final DocInfo item) {
+        private void SendDeleteDocRequest(final UploadDocument item) {
             Call<Result> deleteDocCall = mIUserBiz.deleteDoc(item.getId());
             deleteDocCall.enqueue(new Callback<Result>() {
                 @Override

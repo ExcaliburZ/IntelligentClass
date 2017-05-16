@@ -111,7 +111,6 @@ public class LoginActivity extends AppCompatActivity {
             resultCall.enqueue(new Callback<LoginInfo>() {
                 @Override
                 public void onResponse(Call<LoginInfo> call, Response<LoginInfo> response) {
-                    showProgress(false);
                     if (response.body() == null || response.code() / 100 != 2) {
                         ToastUtils.showToast(LoginActivity.this, "登录失败");
                         return;
@@ -121,9 +120,10 @@ public class LoginActivity extends AppCompatActivity {
                         return;
                     }
                     ToastUtils.showToast(LoginActivity.this, "login success");
-                    initGlobalPara(response);
                     Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                     startActivity(intent);
+                    initGlobalPara(response);
+                    showProgress(false);
                     LoginActivity.this.finish();
                 }
 

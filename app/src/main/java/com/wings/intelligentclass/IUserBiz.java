@@ -3,10 +3,10 @@ package com.wings.intelligentclass;
 import com.wings.intelligentclass.domain.CheckInRequest;
 import com.wings.intelligentclass.domain.CheckInResultData;
 import com.wings.intelligentclass.domain.Clazz;
-import com.wings.intelligentclass.domain.DocInfo;
 import com.wings.intelligentclass.domain.LoginInfo;
 import com.wings.intelligentclass.domain.MyCheckInData;
 import com.wings.intelligentclass.domain.Result;
+import com.wings.intelligentclass.domain.UploadDocument;
 import com.wings.intelligentclass.domain.User;
 
 import java.io.File;
@@ -39,7 +39,7 @@ public interface IUserBiz {
     Call<Result> addClass(@Body Clazz clazz);
 
     @GET("doc_list")
-    Call<List<DocInfo>> getDocList(@Query("clazz_id") String classID);
+    Call<List<UploadDocument>> getDocList(@Query("clazz_id") String classID);
 
     @GET("remove_doc")
     Call<Result> deleteDoc(@Query("id") String id);
@@ -62,6 +62,12 @@ public interface IUserBiz {
 
     @POST("upload")
     Call<Result> upload(@Query("clazz_id") String classID, @Body File file);
+
+    @Multipart
+    @POST("upload")
+    Call<Result> uploadDoc(@Part MultipartBody.Part file,
+                           @Query("clazz_id") String classID,
+                           @Query("size") String size);
 
     @GET("student_check_in")
     Call<Result> studentCheckIn(@Query("clazz_id") String classID,

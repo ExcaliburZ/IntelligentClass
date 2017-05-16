@@ -16,6 +16,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.MultiAutoCompleteTextView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.wings.intelligentclass.domain.Result;
@@ -26,11 +27,12 @@ import java.io.File;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import okhttp3.MultipartBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class UploadDocActivity extends AppCompatActivity {
+public class UploadDocActivity extends AppCompatActivity implements ProgressRequestBody.UploadCallbacks {
 
     private static final int FILE_SELECT_CODE = 1;
     @BindView(R.id.bt_select_doc)
@@ -43,8 +45,11 @@ public class UploadDocActivity extends AppCompatActivity {
     ImageView mIvDocIcon;
     @BindView(R.id.description)
     MultiAutoCompleteTextView mDescription;
+    @BindView(R.id.progressBar)
+    ProgressBar mProgressBar;
     private File mFile;
     private String mClassId;
+    private String mFileSizeStr;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,8 +77,12 @@ public class UploadDocActivity extends AppCompatActivity {
             ToastUtils.showToast(this, "请先选择课件");
             return;
         }
+
+        ProgressRequestBody fileBody = new ProgressRequestBody(mFile, this);
+        MultipartBody.Part filePart = MultipartBody.Part.createFormData("doc", mFile.getName(), fileBody);
+
         IUserBiz iUserBiz = RetrofitManager.getInstance().getIUserBiz();
-        Call<Result> upload = iUserBiz.upload(mClassId, mFile);
+        Call<Result> upload = iUserBiz.uploadDoc(filePart, mClassId, mFileSizeStr);
         upload.enqueue(new Callback<Result>() {
             @Override
             public void onResponse(Call<Result> call, Response<Result> response) {
@@ -81,6 +90,7 @@ public class UploadDocActivity extends AppCompatActivity {
                     ToastUtils.showToast(UploadDocActivity.this, "uploadMulti failed");
                     return;
                 }
+                UploadDocActivity.this.onFinish();
                 ToastUtils.showToast(UploadDocActivity.this, "uploadMulti success");
             }
 
@@ -90,6 +100,21 @@ public class UploadDocActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    @Override
+    public void onProgressUpdate(int percentage) {
+        mProgressBar.setProgress(percentage);
+    }
+
+    @Override
+    public void onError() {
+
+    }
+
+    @Override
+    public void onFinish() {
+        mProgressBar.setProgress(100);
     }
 
     private void selectDoc() {
@@ -115,9 +140,9 @@ public class UploadDocActivity extends AppCompatActivity {
                     String path = getPath(this, data.getData());
                     assert path != null;
                     mFile = new File(path);
-                    String fileSizeStr = getFileSizeStr(mFile);
+                    mFileSizeStr = getFileSizeStr(mFile);
                     String name = mFile.getName();
-                    mTvDocName.setText(name + "  :  " + fileSizeStr);
+                    mTvDocName.setText(name + "  :  " + mFileSizeStr);
                     mIvDocIcon.setVisibility(View.VISIBLE);
                     ToastUtils.showToast(this, "选择成功");
                 } catch (Exception e) {
@@ -138,6 +163,7 @@ public class UploadDocActivity extends AppCompatActivity {
         return fileSizeStr;
     }
 
+
     public static long getFolderSize(File f) {
         long size = 0;
         if (f.isDirectory()) {
@@ -149,7 +175,6 @@ public class UploadDocActivity extends AppCompatActivity {
         }
         return size;
     }
-
 
     public static String getPath(Context context, Uri uri) {
         final boolean isKitKat = Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT;
