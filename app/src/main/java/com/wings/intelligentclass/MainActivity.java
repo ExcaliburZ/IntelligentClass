@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -26,14 +25,14 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.setDrawerListener(toggle);
-        toggle.syncState();
+        //DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        //ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+        //        this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        //drawer.setDrawerListener(toggle);
+        //toggle.syncState();
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
+        //NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        //navigationView.setNavigationItemSelectedListener(this);
     }
 
     @Override
@@ -94,7 +93,8 @@ public class MainActivity extends AppCompatActivity
     }
 
 
-    @OnClick({R.id.rl_class, R.id.rl_my_class, R.id.rl_search_class})
+    @OnClick({R.id.rl_class, R.id.rl_my_class, R.id.rl_search_class,
+            R.id.rl_cczu, R.id.rl_lib,R.id.rl_info})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.rl_class:
@@ -106,7 +106,22 @@ public class MainActivity extends AppCompatActivity
                 startActivity(myClassintent);
                 break;
             case R.id.rl_search_class:
+                Intent serachIntent = new Intent(this, SearchClassActivity.class);
+                startActivity(serachIntent);
                 break;
+            case R.id.rl_cczu:
+                Intent cczuIntent = new Intent(this, CczuActivity.class);
+                startActivity(cczuIntent);
+                break;
+            case R.id.rl_lib:
+                Intent libIntent = new Intent(this, LibActivity.class);
+                startActivity(libIntent);
+                break;
+            case R.id.rl_info:
+                Intent infoIntent = new Intent(this, InfoActivity.class);
+                startActivity(infoIntent);
+                break;
+
         }
     }
 }

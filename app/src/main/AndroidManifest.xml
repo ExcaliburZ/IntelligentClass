@@ -86,6 +86,31 @@
             android:label="@string/title_my_check_in"
             android:parentActivityName=".StudentOperationActivity">
         </activity>
+        <activity
+            android:name=".DownloadDocActivity"
+            android:label="@string/title_download_doc"
+            android:parentActivityName=".StudentOperationActivity">
+        </activity>
+        <activity
+            android:name=".SearchClassActivity"
+            android:label="@string/search_class"
+            android:parentActivityName=".MainActivity">
+        </activity>
+        <activity
+            android:name=".CczuActivity"
+            android:label="@string/cczu"
+            android:parentActivityName=".MainActivity">
+        </activity>
+        <activity
+            android:name=".LibActivity"
+            android:label="@string/mobile_lib"
+            android:parentActivityName=".MainActivity">
+        </activity>
+        <activity
+            android:name=".InfoActivity"
+            android:label="@string/info"
+            android:parentActivityName=".MainActivity">
+        </activity>
     </application>
 
 </manifest>

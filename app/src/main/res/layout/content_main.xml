@@ -5,6 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.wings.intelligentclass.MainActivity"
     tools:showIn="@layout/app_bar_main">
@@ -25,14 +26,14 @@
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_centerInParent="true"
-                android:src="@android:drawable/btn_star"/>
+                android:src="@drawable/ic_list"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/iv_class_manager"
                 android:layout_centerInParent="true"
-                android:text="班级管理"
+                android:text="班级管理(教师)"
                 android:textColor="#000"
                 android:textSize="16sp"/>
         </RelativeLayout>
@@ -49,14 +50,14 @@
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_centerInParent="true"
-                android:src="@android:drawable/btn_star_big_on"/>
+                android:src="@drawable/ic_class"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/iv_my_class"
                 android:layout_centerInParent="true"
-                android:text="我的班级"
+                android:text="我的班级(学生)"
                 android:textColor="#000"
                 android:textSize="16sp"/>
         </RelativeLayout>
@@ -72,7 +73,7 @@
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_centerInParent="true"
-                android:src="@android:drawable/btn_star_big_on"/>
+                android:src="@drawable/ic_search_class"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -86,5 +87,81 @@
 
     </LinearLayout>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:orientation="horizontal">
+
+        <RelativeLayout
+            android:id="@+id/rl_cczu"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <ImageView
+                android:id="@+id/iv_cczu"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_centerInParent="true"
+                android:src="@drawable/ic_cczu"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/iv_cczu"
+                android:layout_centerInParent="true"
+                android:text="直达常大"
+                android:textColor="#000"
+                android:textSize="16sp"/>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rl_lib"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <ImageView
+                android:id="@+id/iv_lib"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_centerInParent="true"
+                android:src="@drawable/ic_library"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/iv_lib"
+                android:layout_centerInParent="true"
+                android:text="移动图书馆"
+                android:textColor="#000"
+                android:textSize="16sp"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rl_info"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <ImageView
+                android:id="@+id/iv_info"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_centerInParent="true"
+                android:src="@drawable/ic_info"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/iv_info"
+                android:layout_centerInParent="true"
+                android:text="信息数理学院"
+                android:textColor="#000"
+                android:textSize="16sp"/>
+        </RelativeLayout>
+
+    </LinearLayout>
 
 </LinearLayout>

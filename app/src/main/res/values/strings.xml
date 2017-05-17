@@ -41,4 +41,10 @@
     <string name="title_doc_manager">教案管理</string>
     <string name="title_student_operation">学生操作</string>
     <string name="title_my_check_in">我的签到</string>
+    <string name="title_download_doc">下载教案</string>
+    <string name="name_or_account">请输入班级名或者教师用户名</string>
+    <string name="cczu">常州大学</string>
+    <string name="mobile_lib">移动图书馆</string>
+    <string name="info">信息与数理学院</string>
+    <string name="search_class">查找班级</string>
 </resources>

@@ -47,6 +47,9 @@ public interface IUserBiz {
     @GET("my_class")
     Call<List<Clazz>> getMyClasses(@Query("account") String account);
 
+    @GET("search_class")
+    Call<List<Clazz>> searchClass(@Query("key") String key);
+
     @GET("start_check_in")
     Call<Result> startCheckIn(@Query("clazz_id") String classID, @Query("password") String password);
 

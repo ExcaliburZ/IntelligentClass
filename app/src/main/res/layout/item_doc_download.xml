@@ -32,7 +32,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
 
-        android:layout_toLeftOf="@+id/iv_delete_doc"
+        android:layout_toLeftOf="@+id/iv_download_doc"
         android:text="1.5 MB"
         android:textSize="12sp"/>
 
@@ -43,18 +43,18 @@
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="20dp"
         android:layout_marginRight="@dimen/dp_10"
-        android:layout_toLeftOf="@id/iv_delete_doc"
+        android:layout_toLeftOf="@id/iv_download_doc"
         android:text="upload at :2017/05/05"
         android:textSize="12sp"/>
 
     <ImageView
-        android:id="@+id/iv_delete_doc"
+        android:id="@+id/iv_download_doc"
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
         android:layout_marginRight="10dp"
-        app:srcCompat="@drawable/ic_delete"/>
+        app:srcCompat="@drawable/ic_downlad"/>
 
     <ImageView
         android:layout_width="match_parent"

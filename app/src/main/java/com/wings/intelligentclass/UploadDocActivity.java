@@ -143,6 +143,17 @@ public class UploadDocActivity extends AppCompatActivity implements ProgressRequ
                     mFileSizeStr = getFileSizeStr(mFile);
                     String name = mFile.getName();
                     mTvDocName.setText(name + "  :  " + mFileSizeStr);
+                    if (mFile.getName().endsWith(".doc") || mFile.getName().endsWith(".docx")) {
+                        mIvDocIcon.setImageResource(R.drawable.doc);
+                    } else if (mFile.getName().endsWith(".ppt")) {
+                        mIvDocIcon.setImageResource(R.drawable.ppt);
+                    } else if (mFile.getName().endsWith(".rar")) {
+                        mIvDocIcon.setImageResource(R.drawable.rar);
+                    } else if (mFile.getName().endsWith(".pdf")) {
+                        mIvDocIcon.setImageResource(R.drawable.pdf_2);
+                    } else if (mFile.getName().endsWith(".txt")) {
+                        mIvDocIcon.setImageResource(R.drawable.txt);
+                    }
                     mIvDocIcon.setVisibility(View.VISIBLE);
                     ToastUtils.showToast(this, "选择成功");
                 } catch (Exception e) {
