@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_margin="10dp"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        app:cardCornerRadius="50dp">
+
+        <ImageView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:src="@drawable/ic_avater"/>
+    </android.support.v7.widget.CardView>
+
+    <TextView
+        android:id="@+id/title"
+        style="@style/Base.TextAppearance.AppCompat.Title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/icon"
+        android:gravity="center_horizontal"
+        android:text="智能课堂App"/>
+
+    <TextView
+        android:id="@+id/copyright"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/title"
+        android:gravity="center_horizontal"
+        android:text="copyright by 张建奇"/>
+
+    <TextView
+        android:id="@+id/content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/copyright"
+        android:layout_marginTop="20dp"
+        android:gravity="center_horizontal"
+        android:text="For 2017 毕业设计"/>
+
+    <TextView
+        android:id="@+id/open_source"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/content"
+        android:layout_marginBottom="20dp"
+        android:layout_marginTop="20dp"
+        android:autoLink="web"
+        android:gravity="center_horizontal"
+        android:text="open source:https://github.com/ExcaliburZ/IntelligentClass"/>
+</RelativeLayout>

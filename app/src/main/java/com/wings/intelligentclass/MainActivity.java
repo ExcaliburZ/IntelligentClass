@@ -11,6 +11,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.afollestad.materialdialogs.MaterialDialog;
+
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
@@ -61,6 +63,12 @@ public class MainActivity extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            boolean wrapInScrollView = true;
+            new MaterialDialog.Builder(this)
+                    .title("About me")
+                    .customView(R.layout.dialog_about, wrapInScrollView)
+                    .positiveText("OK")
+                    .show();
             return true;
         }
 
@@ -94,7 +102,7 @@ public class MainActivity extends AppCompatActivity
 
 
     @OnClick({R.id.rl_class, R.id.rl_my_class, R.id.rl_search_class,
-            R.id.rl_cczu, R.id.rl_lib,R.id.rl_info})
+            R.id.rl_cczu, R.id.rl_lib, R.id.rl_info})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.rl_class:

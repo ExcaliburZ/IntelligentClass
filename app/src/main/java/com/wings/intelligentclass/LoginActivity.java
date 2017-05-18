@@ -53,7 +53,7 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
         // Set up the login form.
-
+        setTitle("登录");
         mLoginFormView = findViewById(R.id.login_form);
         mProgressView = findViewById(R.id.login_progress);
     }

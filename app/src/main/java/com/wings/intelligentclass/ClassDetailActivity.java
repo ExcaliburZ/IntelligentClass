@@ -127,7 +127,7 @@ public class ClassDetailActivity extends AppCompatActivity {
     private void shoContentDialog() {
         MaterialDialog titleDialog = new MaterialDialog.Builder(this)
                 .title("请输入题目内容")
-                .inputType(InputType.TYPE_CLASS_NUMBER)
+                .inputType(InputType.TYPE_CLASS_TEXT)
                 .input("可留空", "", new MaterialDialog.InputCallback() {
                     @Override
                     public void onInput(MaterialDialog dialog, CharSequence input) {

@@ -50,4 +50,5 @@
     <string name="answer_question">回答问题</string>
     <string name="question_list">问题列表</string>
     <string name="student_answer">学生回答列表</string>
+    <string name="action_about">about</string>
 </resources>

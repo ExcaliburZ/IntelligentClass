@@ -18,9 +18,9 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 
 public class RetrofitManager {
-    //private final static String BASE_URL = "http://182.254.156.215:8080/";
-    //private final static String BASE_URL = "http://10.0.0.2:8088/kcsj/";
-    public final static String BASE_URL = "http://192.168.1.111:8088/kcsj/";
+    public final static String BASE_URL = "http://182.254.156.215:8080/kcsj/";
+    //public final static String BASE_URL = "http://10.0.0.2:8088/kcsj/";
+    //public final static String BASE_URL = "http://192.168.1.111:8088/kcsj/";
     private final static String TAG = "RetrofitManager";
     private static RetrofitManager instance = new RetrofitManager();
     private final Retrofit mRetrofit;
