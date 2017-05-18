@@ -39,12 +39,20 @@ public class StudentOperationActivity extends AppCompatActivity {
                 showMyCheckIn();
                 break;
             case R.id.cv_download_document:
+                downloadDoc();
                 break;
             case R.id.cv_class_question:
                 break;
             case R.id.cv_usually_points:
                 break;
         }
+    }
+
+
+    private void downloadDoc() {
+        Intent intent = new Intent(StudentOperationActivity.this, DownloadDocActivity.class);
+        intent.putExtra("class_id", mClassId);
+        startActivity(intent);
     }
 
     private void showMyCheckIn() {

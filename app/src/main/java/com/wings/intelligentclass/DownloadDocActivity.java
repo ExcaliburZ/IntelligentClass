@@ -1,6 +1,7 @@
 package com.wings.intelligentclass;
 
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -12,23 +13,34 @@ import com.afollestad.materialdialogs.MaterialDialog;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.wings.intelligentclass.domain.UploadDocument;
+import com.wings.intelligentclass.download.ProgressListener;
+import com.wings.intelligentclass.download.ProgressResponseBody;
 import com.wings.intelligentclass.utils.ToastUtils;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import okhttp3.Interceptor;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class DownloadDocActivity extends AppCompatActivity {
+public class DownloadDocActivity extends AppCompatActivity implements ProgressListener {
 
     @BindView(R.id.rv_classes)
     RecyclerView mDocRecyclerView;
     private List<UploadDocument> mDocInfoList;
     private IUserBiz mIUserBiz;
     private DocListAdapter mAdapter;
+    private MaterialDialog mDownloadDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,7 +96,7 @@ public class DownloadDocActivity extends AppCompatActivity {
             } else if (item.getName().endsWith(".txt")) {
                 viewHolder.setImageResource(R.id.iv_icon, R.drawable.txt);
             }
-            viewHolder.getView(R.id.iv_delete_doc).setOnClickListener(new View.OnClickListener() {
+            viewHolder.getView(R.id.iv_download_doc).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     showDialog(item);
@@ -108,8 +120,74 @@ public class DownloadDocActivity extends AppCompatActivity {
         }
 
         private void SendDownloadRequest(final UploadDocument item) {
-            //Call<Result> deleteDocCall = mIUserBiz.deleteDoc(item.getId());
+            showDownloadDialog();
 
+            int index = item.getDownload_url().indexOf("document");
+            String substring = item.getDownload_url().substring(index);
+            String extraUrl = substring.replace("\\", "/") + "/";
+            String realUrl = RetrofitManager.BASE_URL + extraUrl + item.getUuidname();
+            Request request = new Request.Builder()
+                    .url(realUrl)
+                    .build();
+            OkHttpClient client = new OkHttpClient.Builder()
+                    .addNetworkInterceptor(new Interceptor() {
+                        @Override
+                        public okhttp3.Response intercept(Chain chain) throws IOException {
+                            okhttp3.Response originalResponse = chain.proceed(chain.request());
+                            return originalResponse.newBuilder()
+                                    .body(new ProgressResponseBody(originalResponse.body(), DownloadDocActivity.this))
+                                    .build();
+                        }
+                    })
+                    .build();
+
+            client.newCall(request).enqueue(new okhttp3.Callback() {
+                @Override
+                public void onFailure(okhttp3.Call call, IOException e) {
+                    mDownloadDialog.dismiss();
+                    ToastUtils.showToast(DownloadDocActivity.this, "下载失败");
+                }
+
+                @Override
+                public void onResponse(okhttp3.Call call, okhttp3.Response response) throws IOException {
+                    InputStream in = response.body().byteStream();
+                    int len = 0;
+                    byte buffer[] = new byte[1024];
+                    String path = "/storage/emulated/0/Download/";
+                    File file = new File("/storage/emulated/0/Download");
+                    String message = item.getName() + "已被下载到Download中";
+                    if (!file.exists()) {
+                        path = Environment.getExternalStorageDirectory().getPath() + "/";
+                        message = item.getName() + "已被下载到内存卡根目录中";
+                    }
+                    OutputStream out = new FileOutputStream(path + item.getName());
+                    while ((len = in.read(buffer)) > 0) {
+                        out.write(buffer, 0, len);
+                    }
+                    in.close();
+                    out.close();
+                    ToastUtils.showToast(DownloadDocActivity.this, message);
+                }
+            });
         }
+
+    }
+
+    private void showDownloadDialog() {
+        mDownloadDialog = new MaterialDialog.Builder(this)
+                .title("下载进度")
+                .progress(false, 100, true)
+                .show();
+    }
+
+    @Override
+    public void update(long bytesRead, long contentLength, boolean done) {
+        if (done) {
+            mDownloadDialog.dismiss();
+            return;
+        }
+        System.out.println("bytesRead ::" + bytesRead);
+        double percent = (double) bytesRead / (double) contentLength;
+        mDownloadDialog.setProgress((int) (percent * 100));
     }
 }

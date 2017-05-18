@@ -5,6 +5,7 @@ import com.wings.intelligentclass.domain.CheckInResultData;
 import com.wings.intelligentclass.domain.Clazz;
 import com.wings.intelligentclass.domain.LoginInfo;
 import com.wings.intelligentclass.domain.MyCheckInData;
+import com.wings.intelligentclass.domain.Question;
 import com.wings.intelligentclass.domain.Result;
 import com.wings.intelligentclass.domain.UploadDocument;
 import com.wings.intelligentclass.domain.User;
@@ -53,8 +54,14 @@ public interface IUserBiz {
     @GET("start_check_in")
     Call<Result> startCheckIn(@Query("clazz_id") String classID, @Query("password") String password);
 
+    @GET("join_class")
+    Call<Result> joinClass(@Query("clazz_id") String classID, @Query("account") String account);
+
     @POST("check_in_result")
     Call<CheckInResultData> getCheckInResult(@Body CheckInRequest request);
+
+    @POST("add_question")
+    Call<Result> addQuestion(@Body Question question);
 
     @GET("get_my_check_in")
     Call<MyCheckInData> getMyCheckIn(@Query("clazz_id") String classID, @Query("account") String account);
