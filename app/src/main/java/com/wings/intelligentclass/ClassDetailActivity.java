@@ -41,6 +41,8 @@ public class ClassDetailActivity extends AppCompatActivity {
     CardView mCvUsuallyPoints;
     @BindView(R.id.cv_check_in_result)
     CardView mCvCheckInResult;
+    @BindView(R.id.cv_student_answer)
+    CardView mCvStudentAnswer;
     private Clazz mClazz;
     private String mTitle;
 
@@ -63,7 +65,8 @@ public class ClassDetailActivity extends AppCompatActivity {
             R.id.cv_student_list,
             R.id.cv_usually_points,
             R.id.cv_check_in_result,
-            R.id.cv_doc_manager})
+            R.id.cv_doc_manager,
+            R.id.cv_student_answer})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.cv_start_check_in:
@@ -86,7 +89,15 @@ public class ClassDetailActivity extends AppCompatActivity {
             case R.id.cv_doc_manager:
                 enterDocManager();
                 break;
+            case R.id.cv_student_answer:
+                enterStudentAnswer();
         }
+    }
+
+    private void enterStudentAnswer() {
+        Intent intent = new Intent(this, TeacherQueListActivity.class);
+        intent.putExtra("class_id", mClazz.getId());
+        startActivity(intent);
     }
 
 
@@ -116,7 +127,7 @@ public class ClassDetailActivity extends AppCompatActivity {
     private void shoContentDialog() {
         MaterialDialog titleDialog = new MaterialDialog.Builder(this)
                 .title("请输入题目内容")
-                .inputType(InputType.TYPE_CLASS_TEXT)
+                .inputType(InputType.TYPE_CLASS_NUMBER)
                 .input("可留空", "", new MaterialDialog.InputCallback() {
                     @Override
                     public void onInput(MaterialDialog dialog, CharSequence input) {

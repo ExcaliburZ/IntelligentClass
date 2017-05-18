@@ -42,10 +42,17 @@ public class StudentOperationActivity extends AppCompatActivity {
                 downloadDoc();
                 break;
             case R.id.cv_class_question:
+                answerQuestion();
                 break;
             case R.id.cv_usually_points:
                 break;
         }
+    }
+
+    private void answerQuestion() {
+        Intent intent = new Intent(this, AnswerQueListActivity.class);
+        intent.putExtra("class_id", mClassId);
+        startActivity(intent);
     }
 
 

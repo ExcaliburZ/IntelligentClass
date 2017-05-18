@@ -47,4 +47,7 @@
     <string name="mobile_lib">移动图书馆</string>
     <string name="info">信息与数理学院</string>
     <string name="search_class">查找班级</string>
+    <string name="answer_question">回答问题</string>
+    <string name="question_list">问题列表</string>
+    <string name="student_answer">学生回答列表</string>
 </resources>

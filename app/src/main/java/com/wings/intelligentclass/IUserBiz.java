@@ -1,5 +1,6 @@
 package com.wings.intelligentclass;
 
+import com.wings.intelligentclass.domain.Answer;
 import com.wings.intelligentclass.domain.CheckInRequest;
 import com.wings.intelligentclass.domain.CheckInResultData;
 import com.wings.intelligentclass.domain.Clazz;
@@ -63,6 +64,12 @@ public interface IUserBiz {
     @POST("add_question")
     Call<Result> addQuestion(@Body Question question);
 
+    @POST("add_answer")
+    Call<Result> addAnswer(@Body Answer answer);
+
+    @GET("get_question_list")
+    Call<List<Question>> getQuestionList(@Query("clazz_id") String classID);
+
     @GET("get_my_check_in")
     Call<MyCheckInData> getMyCheckIn(@Query("clazz_id") String classID, @Query("account") String account);
 
@@ -85,4 +92,7 @@ public interface IUserBiz {
                                 @Query("student_id") String studentID,
                                 @Query("student_name") String studentName,
                                 @Query("student_number") String studentNumber);
+
+    @GET("get_answer_list")
+    Call<List<Answer>> getAnswerList(@Query("question_id") String questionId);
 }

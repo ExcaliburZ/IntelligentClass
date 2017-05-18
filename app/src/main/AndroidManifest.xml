@@ -111,6 +111,29 @@
             android:label="@string/info"
             android:parentActivityName=".MainActivity">
         </activity>
+        <activity
+            android:name=".AnswerQueListActivity"
+            android:label="@string/question_list"
+            android:launchMode="singleTop"
+            android:parentActivityName=".StudentOperationActivity">
+        </activity>
+        <activity
+            android:name=".QuestionDetailActivity"
+            android:label="@string/answer_question"
+            android:parentActivityName=".AnswerQueListActivity">
+        </activity>
+        <activity
+            android:name=".TeacherQueListActivity"
+            android:label="@string/question_list"
+            android:launchMode="singleTop"
+            android:parentActivityName=".ClassDetailActivity">
+        </activity>
+        <activity
+            android:name=".StudentAnswerListActivity"
+            android:label="@string/student_answer"
+            android:parentActivityName=".TeacherQueListActivity">
+        </activity>
+
     </application>
 
 </manifest>
