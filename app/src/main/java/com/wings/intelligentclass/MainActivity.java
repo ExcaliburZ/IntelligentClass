@@ -12,6 +12,12 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.wings.intelligentclass.cczu.CczuActivity;
+import com.wings.intelligentclass.cczu.InfoActivity;
+import com.wings.intelligentclass.cczu.LibActivity;
+import com.wings.intelligentclass.search.SearchClassActivity;
+import com.wings.intelligentclass.student.clazz.MyClassActivity;
+import com.wings.intelligentclass.teacher.clazz.ClassManagerActivity;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -71,7 +77,6 @@ public class MainActivity extends AppCompatActivity
                     .show();
             return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
 

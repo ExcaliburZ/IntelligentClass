@@ -24,7 +24,7 @@
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
         <activity
-            android:name=".LoginActivity" >
+            android:name=".user.LoginActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
@@ -32,105 +32,105 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".RegisterActivity"
+            android:name=".user.RegisterActivity"
             android:label="@string/title_activity_register">
         </activity>
         <activity
-            android:name=".ClassManagerActivity"
+            android:name=".teacher.clazz.ClassManagerActivity"
             android:label="@string/title_activity_class_manager"
             android:launchMode="singleTop"
             android:parentActivityName=".MainActivity">
         </activity>
         <activity
-            android:name=".AddClassActivity"
-            android:parentActivityName=".ClassManagerActivity">
+            android:name=".teacher.clazz.AddClassActivity"
+            android:parentActivityName=".teacher.clazz.ClassManagerActivity">
         </activity>
         <activity
-            android:name=".ClassDetailActivity"
+            android:name=".teacher.clazz.ClassDetailActivity"
             android:launchMode="singleTop"
-            android:parentActivityName=".ClassManagerActivity">
+            android:parentActivityName=".teacher.clazz.ClassManagerActivity">
         </activity>
         <activity
-            android:name=".StudentsListActivity"
-            android:parentActivityName=".ClassDetailActivity">
+            android:name=".teacher.clazz.StudentsListActivity"
+            android:parentActivityName=".teacher.clazz.ClassDetailActivity">
         </activity>
         <activity
-            android:name=".CheckInResultActivity"
-            android:parentActivityName=".ClassDetailActivity">
+            android:name=".teacher.check_in.CheckInResultActivity"
+            android:parentActivityName=".teacher.clazz.ClassDetailActivity">
         </activity>
         <activity
-            android:name=".UploadDocActivity"
+            android:name=".teacher.document.UploadDocActivity"
             android:label="@string/title_upload_doc"
-            android:parentActivityName=".ClassDetailActivity">
+            android:parentActivityName=".teacher.clazz.ClassDetailActivity">
         </activity>
         <activity
-            android:name=".MyClassActivity"
+            android:name=".student.clazz.MyClassActivity"
             android:label="@string/title_activity_my_class"
             android:launchMode="singleTop"
             android:parentActivityName=".MainActivity">
         </activity>
         <activity
-            android:name=".StudentOperationActivity"
+            android:name=".student.StudentOperationActivity"
             android:label="@string/title_student_operation"
             android:launchMode="singleTop"
-            android:parentActivityName=".MyClassActivity">
+            android:parentActivityName=".student.clazz.MyClassActivity">
         </activity>
         <activity
-            android:name=".DocManagerActivity"
+            android:name=".teacher.document.DocManagerActivity"
             android:label="@string/title_doc_manager"
-            android:parentActivityName=".ClassDetailActivity">
+            android:parentActivityName=".teacher.clazz.ClassDetailActivity">
         </activity>
         <activity
-            android:name=".MyCheckInActivity"
+            android:name=".student.check_in.MyCheckInActivity"
             android:label="@string/title_my_check_in"
-            android:parentActivityName=".StudentOperationActivity">
+            android:parentActivityName=".student.StudentOperationActivity">
         </activity>
         <activity
-            android:name=".DownloadDocActivity"
+            android:name=".student.download.DownloadDocActivity"
             android:label="@string/title_download_doc"
-            android:parentActivityName=".StudentOperationActivity">
+            android:parentActivityName=".student.StudentOperationActivity">
         </activity>
         <activity
-            android:name=".SearchClassActivity"
+            android:name=".search.SearchClassActivity"
             android:label="@string/search_class"
             android:parentActivityName=".MainActivity">
         </activity>
         <activity
-            android:name=".CczuActivity"
+            android:name=".cczu.CczuActivity"
             android:label="@string/cczu"
             android:parentActivityName=".MainActivity">
         </activity>
         <activity
-            android:name=".LibActivity"
+            android:name=".cczu.LibActivity"
             android:label="@string/mobile_lib"
             android:parentActivityName=".MainActivity">
         </activity>
         <activity
-            android:name=".InfoActivity"
+            android:name=".cczu.InfoActivity"
             android:label="@string/info"
             android:parentActivityName=".MainActivity">
         </activity>
         <activity
-            android:name=".AnswerQueListActivity"
+            android:name=".teacher.question.AnswerQueListActivity"
             android:label="@string/question_list"
             android:launchMode="singleTop"
-            android:parentActivityName=".StudentOperationActivity">
+            android:parentActivityName=".student.StudentOperationActivity">
         </activity>
         <activity
-            android:name=".QuestionDetailActivity"
+            android:name=".student.answer.QuestionDetailActivity"
             android:label="@string/answer_question"
-            android:parentActivityName=".AnswerQueListActivity">
+            android:parentActivityName=".teacher.question.AnswerQueListActivity">
         </activity>
         <activity
-            android:name=".TeacherQueListActivity"
+            android:name=".teacher.question.TeacherQueListActivity"
             android:label="@string/question_list"
             android:launchMode="singleTop"
-            android:parentActivityName=".ClassDetailActivity">
+            android:parentActivityName=".teacher.clazz.ClassDetailActivity">
         </activity>
         <activity
-            android:name=".StudentAnswerListActivity"
+            android:name=".teacher.question.StudentAnswerListActivity"
             android:label="@string/student_answer"
-            android:parentActivityName=".TeacherQueListActivity">
+            android:parentActivityName=".teacher.question.TeacherQueListActivity">
         </activity>
 
     </application>
