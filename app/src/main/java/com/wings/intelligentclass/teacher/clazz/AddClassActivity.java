@@ -34,7 +34,7 @@ public class AddClassActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_class);
         ButterKnife.bind(this);
-        setTitle("Create New Clazz");
+        setTitle("创建新班级");
     }
 
     @OnClick(R.id.email_sign_in_button)

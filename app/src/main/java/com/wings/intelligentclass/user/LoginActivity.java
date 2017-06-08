@@ -30,9 +30,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-/**
- * A login screen that offers login via email/password.
- */
+
 public class LoginActivity extends AppCompatActivity {
 
     @BindView(R.id.account)
@@ -44,9 +42,7 @@ public class LoginActivity extends AppCompatActivity {
     @BindView(R.id.register_button)
     Button mRegisterButton;
 
-    /**
-     * Keep track of the login task to ensure we can cancel it if requested.
-     */
+
     private UserLoginTask mAuthTask = null;
 
     private View mProgressView;
@@ -64,11 +60,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
 
-    /**
-     * Attempts to sign in or register the account specified by the login form.
-     * If there are form errors (invalid email, missing fields, etc.), the
-     * errors are presented and no actual login attempt is made.
-     */
+
     private void attemptLogin() {
         if (mAuthTask != null) {
             return;
@@ -111,34 +103,39 @@ public class LoginActivity extends AppCompatActivity {
             // Show a progress spinner, and kick off a background task to
             // perform the user login attempt.
             showProgress(true);
-            IUserBiz iUserBiz = RetrofitManager.getInstance().getIUserBiz();
-            Call<LoginInfo> resultCall = iUserBiz.Login(new User(account, password));
-            resultCall.enqueue(new Callback<LoginInfo>() {
-                @Override
-                public void onResponse(Call<LoginInfo> call, Response<LoginInfo> response) {
-                    if (response.body() == null || response.code() / 100 != 2) {
-                        ToastUtils.showToast(LoginActivity.this, "登录失败");
-                        return;
-                    }
-                    if (response.body().code == 302) {
-                        ToastUtils.showToast(LoginActivity.this, response.body().message);
-                        return;
-                    }
-                    ToastUtils.showToast(LoginActivity.this, "login success");
-                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                    startActivity(intent);
-                    initGlobalPara(response);
-                    showProgress(false);
-                    LoginActivity.this.finish();
-                }
-
-                @Override
-                public void onFailure(Call<LoginInfo> call, Throwable t) {
-                    showProgress(false);
-                    ToastUtils.showToast(LoginActivity.this, "login failed,please check account and password");
-                }
-            });
+            sendLoginRequest(account, password);
         }
+    }
+
+    private void sendLoginRequest(String account, String password) {
+        IUserBiz iUserBiz = RetrofitManager.getInstance().getIUserBiz();
+        Call<LoginInfo> resultCall = iUserBiz.Login(new User(account, password));
+        resultCall.enqueue(new Callback<LoginInfo>() {
+            @Override
+            public void onResponse(Call<LoginInfo> call, Response<LoginInfo> response) {
+                if (response.body() == null || response.code() / 100 != 2) {
+                    ToastUtils.showToast(LoginActivity.this, "登录失败.");
+                    return;
+                }
+                if (response.body().code == 302) {
+                    //返回值为302,显示服务器返回的消息
+                    ToastUtils.showToast(LoginActivity.this, response.body().message);
+                    return;
+                }
+                ToastUtils.showToast(LoginActivity.this, "登录成功.");
+                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                startActivity(intent);
+                initGlobalPara(response);
+                showProgress(false);
+                LoginActivity.this.finish();
+            }
+
+            @Override
+            public void onFailure(Call<LoginInfo> call, Throwable t) {
+                showProgress(false);
+                ToastUtils.showToast(LoginActivity.this, "登录失败,请稍候再试");
+            }
+        });
     }
 
     private void initGlobalPara(Response<LoginInfo> response) {
@@ -151,23 +148,15 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private boolean isUsernameValid(String email) {
-        //TODO: Replace this with your own logic
         return email.length() > 4;
     }
 
     private boolean isPasswordValid(String password) {
-        //TODO: Replace this with your own logic
         return password.length() > 4;
     }
 
-    /**
-     * Shows the progress UI and hides the login form.
-     */
     @TargetApi(Build.VERSION_CODES.HONEYCOMB_MR2)
     private void showProgress(final boolean show) {
-        // On Honeycomb MR2 we have the ViewPropertyAnimator APIs, which allow
-        // for very easy animations. If available, use these APIs to fade-in
-        // the progress spinner.
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2) {
             int shortAnimTime = getResources().getInteger(android.R.integer.config_shortAnimTime);
 
@@ -189,8 +178,6 @@ public class LoginActivity extends AppCompatActivity {
                 }
             });
         } else {
-            // The ViewPropertyAnimator APIs are not available, so simply show
-            // and hide the relevant UI components.
             mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
             mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
         }
@@ -218,11 +205,6 @@ public class LoginActivity extends AppCompatActivity {
         this.startActivity(intent);
     }
 
-
-    /**
-     * Represents an asynchronous login/registration task used to authenticate
-     * the user.
-     */
     public class UserLoginTask extends AsyncTask<Void, Void, Boolean> {
 
         private final String mEmail;

@@ -91,16 +91,16 @@ public class UploadDocActivity extends AppCompatActivity implements ProgressRequ
             @Override
             public void onResponse(Call<Result> call, Response<Result> response) {
                 if (response.body() == null || response.code() / 100 != 2) {
-                    ToastUtils.showToast(UploadDocActivity.this, "uploadMulti failed");
+                    ToastUtils.showToast(UploadDocActivity.this, "上传教案失败");
                     return;
                 }
                 UploadDocActivity.this.onFinish();
-                ToastUtils.showToast(UploadDocActivity.this, "uploadMulti success");
+                ToastUtils.showToast(UploadDocActivity.this, "上传教案成功");
             }
 
             @Override
             public void onFailure(Call<Result> call, Throwable t) {
-                ToastUtils.showToast(UploadDocActivity.this, "uploadMulti failed");
+                ToastUtils.showToast(UploadDocActivity.this, "上传教案失败");
             }
         });
 

@@ -108,7 +108,7 @@ public class RegisterActivity extends AppCompatActivity {
             mAccountView.setError(getString(R.string.error_field_required));
             focusView = mAccountView;
             cancel = true;
-        } else if (!isUsernameValid(account)) {
+        } else if (!isAccountValid(account)) {
             mAccountView.setError(getString(R.string.error_invalid_username));
             focusView = mAccountView;
             cancel = true;
@@ -197,9 +197,10 @@ public class RegisterActivity extends AppCompatActivity {
         return phone.length() > 4;
     }
 
-    private boolean isUsernameValid(String email) {
-        //TODO: Replace this with your own logic
-        return email.length() > 6;
+    private boolean isAccountValid(String account) {
+        String regex = "[a-zA-z].*";
+        //通过正则表达式,检测账户是否以字母开头并且大于6个英文字符,不符合返回false
+        return account.matches(regex) && account.length() > 6;
     }
 
     private boolean isPasswordValid(String password) {
